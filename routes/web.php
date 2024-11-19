@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CommentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,7 +24,22 @@ Route::get('/', function () {
 
 
 Route::get('/ajouter', [ArticleController::class, 'ajouterarticle'])->name('ajouter');
+Route::post('/home', [ArticleController::class, 'store'])->name('store');
 Route::get('/home',  [ArticleController::class, 'home11'])->name('home');
+Route::get('/articles/{id}/edit', [ArticleController::class, 'edit'])->name('articles.edit');
+Route::put('/articles/{id}', [ArticleController::class, 'update'])->name('articles.update');
+Route::delete('/articles/{id}', [ArticleController::class, 'destroy'])->name('articles.destroy');
+Route::get('/articles/{id}', [ArticleController::class, 'show'])->name('articles.show');
+Route::post('/articles/{article}/comments', [CommentController::class, 'store'])->name('comments.store');
+
+
+
+
+Route::get('acceuil', [ArticleController::class, 'acceuile']);
+
+
+
+
 
 
 
@@ -32,6 +48,12 @@ Route::post('/affichercategories', [CategoryController::class, 'store'])->name('
 Route::get('/categorie/{id}/edit', [CategoryController::class, 'edit'])->name('categorie.edit');
 Route::put('/categorie/{id}', [CategoryController::class, 'update'])->name('categorie.update');
 Route::get('/categorie/{id}', [CategoryController::class, 'destroy'])->name('categorie.destroy');
+
+
+
+
+
+
 
 
 

@@ -151,7 +151,8 @@
 
     <!-- Formulaire de partage d'article -->
     <div class="form-container">
-        <form action="#" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('store') }}" method="POST" enctype="multipart/form-data">
+            @csrf
             <!-- Titre -->
             <div>
                 <label for="title">Titre de l'article</label>
@@ -177,6 +178,18 @@
                 <textarea id="content" name="content" required placeholder="Rédigez le contenu complet de votre article" aria-required="true"></textarea>
             </div>
 
+            <!-- Catégorie -->
+            <div>
+                <label for="category">Catégorie de l'article</label>
+                <select id="category" name="category" required aria-required="true">
+                    <option value="" disabled selected>Sélectionnez une catégorie</option>
+                    @foreach($categories as $category)
+                    <option value="{{ $category->name }}">{{ $category->name }}</option>
+                    @endforeach
+                </select>
+               
+            </div>
+
             <!-- Image -->
             <div>
                 <label for="image">Image de l'article</label>
@@ -193,7 +206,7 @@
             <div style="display: flex; justify-content: space-between;">
                 <!-- Bouton retour -->
                 <a href="/home">
-                <button type="button" class="back-button" onclick="window.history.back();">Retour</button>
+                    <button type="button" class="back-button" onclick="window.history.back();">Retour</button>
                 </a>
                 <!-- Bouton publier -->
                 <button type="submit">Publier l'Article</button>

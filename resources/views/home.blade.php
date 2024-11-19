@@ -308,7 +308,7 @@
               <span class="hide-menu" style="color:white">Home</span>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link" href="/dashboard" aria-expanded="false">
+              <a class="sidebar-link" href="/acceuil" aria-expanded="false">
                 <iconify-icon icon="solar:widget-add-line-duotone"></iconify-icon>
                 <span class="hide-menu" style="color:white"> Accueil</span>
               </a>
@@ -391,22 +391,61 @@
       <!-- Header End -->
 
       <!-- Articles Section -->
-      <div class="articles-container">
-        <article class="article">
-          <img src="https://via.placeholder.com/800x400" alt="Image de l'article" class="article-image">
-          <h2 class="title">
-            Comment améliorer votre productivité
-          </h2>
-          <a href="article1.html" class="read-more">Lire la suite</a>
+      <div class="articles-container" style="margin_top:24px">
+          @foreach($articles as $article)
+              <article class="article">
+                  <!-- Afficher l'image de l'article, avec une image par défaut si aucune image n'est fournie -->
+                  <img src="{{ $article->image ? asset('storage/images/' . $article->image) : 'https://via.placeholder.com/800x400' }}" 
+                        alt="Image de l'article" class="article-image">
 
-          <div class="action-buttons">
-          <a href="">
-            <iconify-icon icon="material-symbols:edit-outline"></iconify-icon>
-          </a>
-            <a href=""><button><iconify-icon icon="material-symbols:delete-outline"></iconify-icon></button></a>
-          </div>
-        </article>
+
+                  <!-- Titre de l'article -->
+                  <h1 class="title">{{ $article->title }}</h1>
+                  @foreach($categories as $category)
+                  <h6>{{ $category->name}}</h6>
+                  @endforeach
+            
+
+                  <!-- Extrait de l'article -->
+                  <div>
+                      <label for="content">{{ $article->excerpt }}</label>
+                  </div>
+
+                  <!-- Contenu de l'article -->
+                  <!-- <div>
+                      <p>{{ $article->content }}</p>
+                  </div> -->
+
+                  <!-- Date de publication -->
+                  <div>
+                      <label for="datetime">{{ $article->published_at }}</label>
+                  </div>
+
+                  <!-- Lien vers l'article complet (peut être une page de détails) -->
+                  <a href="{{ route('articles.show', $article->id) }}" class="read-more">Lire la suite</a>
+
+                  <div class="action-buttons">
+                      <!-- Lien pour éditer l'article -->
+                      <a href="{{ route('articles.edit', $article->id) }}">
+                          <iconify-icon icon="material-symbols:edit-outline"></iconify-icon>
+                          Modifier
+                      </a>
+
+                      <!-- Formulaire pour supprimer l'article -->
+                      <form action="{{ route('articles.destroy', $article->id) }}" method="POST" style="display:inline;">
+                          @csrf
+                          @method('DELETE')
+                          <button type="submit" style="background: none; border: none;">
+                              <iconify-icon icon="material-symbols:delete-outline"></iconify-icon>
+                              Supprimer
+                          </button>
+                      </form>
+                  </div>
+              </article>
+          @endforeach
       </div>
+
+
     </div>
   </div>
 

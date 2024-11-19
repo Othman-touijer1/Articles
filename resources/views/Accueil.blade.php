@@ -84,16 +84,9 @@
       transition: color 0.3s ease;
     }
 
-   
-
     .sidebar-nav .sidebar-item a:hover {
       color: #ffffff;
-    }
-
-    /* Séparateurs dans la sidebar */
-    .sidebar-divider {
-      border-bottom: 1px solid #444;
-      margin: 15px 0;
+      background-color: #1f2a33;
     }
 
     /* Profil Dropdown */
@@ -158,8 +151,8 @@
 
     /* Section Articles */
     .articles-container {
-      display: flex;
-      flex-wrap: wrap;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
       gap: 20px;
       margin-top: 30px;
     }
@@ -168,10 +161,11 @@
       background-color: #fff;
       border-radius: 10px;
       overflow: hidden;
-      width: calc(33% - 20px);
       box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
       transition: transform 0.3s ease;
       padding: 15px;
+      display: flex;
+      flex-direction: column;
     }
 
     .article:hover {
@@ -242,22 +236,6 @@
       color: white;
     }
 
-    /* Boutons dans les articles */
-    .article .action-buttons a,
-    .article .action-buttons button {
-      background-color: transparent;
-      border: none;
-      color: #007bff;
-      cursor: pointer;
-      font-size: 18px;
-      transition: color 0.3s ease;
-    }
-
-    .article .action-buttons a:hover,
-    .article .action-buttons button:hover {
-      color: #0056b3;
-    }
-
     /* Adaptabilité mobile */
     @media (max-width: 768px) {
       .left-sidebar {
@@ -273,13 +251,30 @@
       }
 
       .articles-container {
-        flex-direction: column;
-        gap: 15px;
+        grid-template-columns: 1fr;
       }
 
       .article {
         width: 100%;
       }
+      /* Ajout du fond sous la barre de recherche et le profil */
+      .navbar-collapse {
+        background-color: #f8f9fa; /* Couleur de fond légère */
+        padding: 10px 20px; /* Padding pour espacer les éléments */
+        border-radius: 8px; /* Bord arrondi */
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Ombre légère sous la barre */
+      }
+
+      /* Pour la barre de recherche */
+      .navbar-nav .nav-item form {
+        margin-right: 20px; /* Espacement à droite pour ne pas coller les éléments */
+      }
+
+      /* Pour l'image du profil et son menu */
+      .navbar-nav .nav-item.dropdown {
+        margin-left: 15px; /* Espacement entre les éléments de la navbar */
+      }
+
     }
   </style>
 </head>
@@ -313,7 +308,6 @@
                 <span class="hide-menu" style="color:white"> Accueil</span>
               </a>
             </li>
-            
             <li><span class="sidebar-divider lg"></span></li>
             <li class="sidebar-item">
               <a class="sidebar-link" href="/home" aria-expanded="false">
@@ -350,56 +344,80 @@
     <!-- Main Content -->
     <div class="body-wrapper">
       <!-- Header Start -->
-      <header class="app-header">
-        <nav class="navbar navbar-expand-lg navbar-light">
-          <ul class="navbar-nav">
-            <li class="nav-item d-block d-xl-none">
-              <a class="nav-link sidebartoggler" id="headerCollapse" href="javascript:void(0)">
-                <i class="ti ti-menu-2"></i>
-              </a>
-            </li>
-          </ul>
-          <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
-            <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
-              <li class="nav-item dropdown">
-                <a class="nav-link" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown" aria-expanded="false">
-                  <img src="../assets/images/profile/user-1.jpg" alt="" width="35" height="35" class="rounded-circle">
-                </a>
-                <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
-                  <div class="message-body">
-                    <form method="GET" action="{{ route('profile.edit') }}">
-                      <center><div style="color:lightblue">{{ Auth::user()->name }}</div></center>
-                      @csrf
-                      <button type="submit" class="d-flex align-items-center gap-2 dropdown-item btn btn-link text-decoration-none text-left">
-                        <i class="ti ti-user fs-6"></i>
-                        <p class="mb-0 fs-3">{{ __('Profile') }}</p>
-                      </button>
-                    </form>
-                    <form method="POST" action="{{ route('logout') }}">
-                      @csrf
-                      <button type="submit" class="d-flex align-items-center gap-2 dropdown-item btn btn-link text-decoration-none text-left" onclick="event.preventDefault(); this.closest('form').submit();">
-                        <i class="ti ti-mail fs-6"></i>
-                        <p class="mb-0 fs-3">{{ __('Log Out') }}</p>
-                      </button>
-                    </form>
-                  </div>
-                </div>
-              </li>
-            </ul>
+<header class="app-header">
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <ul class="navbar-nav">
+      <li class="nav-item d-block d-xl-none">
+        <a class="nav-link sidebartoggler" id="headerCollapse" href="javascript:void(0)">
+          <i class="ti ti-menu-2"></i>
+        </a>
+      </li>
+    </ul>
+    <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
+      <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
+        <!-- Barre de recherche -->
+        <li class="nav-item">
+          <form class="d-flex" method="GET" action="">
+            <input class="form-control me-2" type="search" placeholder="Rechercher" aria-label="Search" name="query">
+            <button class="btn btn-outline-primary" type="submit">
+              <i class="ti ti-search"></i> <!-- Icône de recherche -->
+            </button>
+          </form>
+        </li>
+        <!-- Profil dropdown -->
+        <li class="nav-item dropdown">
+          <a class="nav-link" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="../assets/images/profile/user-1.jpg" alt="" width="35" height="35" class="rounded-circle">
+          </a>
+          <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
+            <div class="message-body">
+              <form method="GET" action="{{ route('profile.edit') }}">
+                <center><div style="color:lightblue">{{ Auth::user()->name }}</div></center>
+                @csrf
+                <button type="submit" class="d-flex align-items-center gap-2 dropdown-item btn btn-link text-decoration-none text-left">
+                  <i class="ti ti-user fs-6"></i>
+                  <p class="mb-0 fs-3">{{ __('Profile') }}</p>
+                </button>
+              </form>
+              <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <button type="submit" class="d-flex align-items-center gap-2 dropdown-item btn btn-link text-decoration-none text-left" onclick="event.preventDefault(); this.closest('form').submit();">
+                  <i class="ti ti-mail fs-6"></i>
+                  <p class="mb-0 fs-3">{{ __('Log Out') }}</p>
+                </button>
+              </form>
+            </div>
           </div>
-        </nav>
-      </header>
-      <!-- Header End -->
+        </li>
+      </ul>
+    </div>
+  </nav>
+</header>
+<!-- Header End -->
+
 
       <!-- Articles Section -->
-      <div class="articles-container">
-      <article class="article">
-                <img src="https://via.placeholder.com/800x400" alt="Image de l'article" class="article-image">
-                <h2 class="title">Comment améliorer votre productivité</h2>
-                <p class="author">Par <strong>Jean Dupont</strong> - 10 Novembre 2024</p>
-                <p class="excerpt">Dans cet article, nous allons explorer quelques stratégies pour mieux gérer votre temps et augmenter votre productivité au quotidien...</p>
-                <a href="article1.html" class="read-more">Lire la suite</a>
-        </article>
+      <div class="articles-container" style="margin_top:100px">
+          @foreach($articles as $article)
+              <article class="article" style="margin-top:50px">
+                  <img src="{{ $article->image ? asset('storage/images/' . $article->image) : 'https://via.placeholder.com/800x400' }}" 
+                       alt="Image de l'article" class="article-image">
+                  <h1 class="title">{{ $article->title }}</h1>
+                  @foreach($categories as $category)
+                      <h6>{{ $category->name }}</h6>
+                  @endforeach
+                  <div class="excerpt">
+                      <label for="content">{{ $article->excerpt }}</label>
+                  </div>
+                  <div class="datetime" style="color:blue">
+                      <label for="datetime">{{ $article->published_at }}</label>
+                  </div>
+                  <label>{{ $article->user->name }}</label>
+                  <a href="{{ route('articles.show', $article->id) }}" class="read-more">Lire la suite</a>
+              </article>
+          @endforeach
+      </div>
+
     </div>
   </div>
 

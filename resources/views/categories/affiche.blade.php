@@ -269,7 +269,7 @@
               <span class="hide-menu" style="color:white">Home</span>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link" href="/dashboard" aria-expanded="false">
+              <a class="sidebar-link" href="/acceuil" aria-expanded="false">
                 <iconify-icon icon="solar:widget-add-line-duotone"></iconify-icon>
                 <span class="hide-menu" style="color:white"> Accueil</span>
               </a>
