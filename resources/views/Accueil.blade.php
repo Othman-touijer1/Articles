@@ -343,57 +343,57 @@
 
     <!-- Main Content -->
     <div class="body-wrapper">
-      <!-- Header Start -->
-<header class="app-header">
-  <nav class="navbar navbar-expand-lg navbar-light">
-    <ul class="navbar-nav">
-      <li class="nav-item d-block d-xl-none">
-        <a class="nav-link sidebartoggler" id="headerCollapse" href="javascript:void(0)">
-          <i class="ti ti-menu-2"></i>
-        </a>
-      </li>
-    </ul>
-    <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
-      <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
-        <!-- Barre de recherche -->
-        <li class="nav-item">
-          <form class="d-flex" method="GET" action="">
-            <input class="form-control me-2" type="search" placeholder="Rechercher" aria-label="Search" name="query">
-            <button class="btn btn-outline-primary" type="submit">
-              <i class="ti ti-search"></i> <!-- Icône de recherche -->
-            </button>
-          </form>
-        </li>
-        <!-- Profil dropdown -->
-        <li class="nav-item dropdown">
-          <a class="nav-link" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown" aria-expanded="false">
-            <img src="../assets/images/profile/user-1.jpg" alt="" width="35" height="35" class="rounded-circle">
-          </a>
-          <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
-            <div class="message-body">
-              <form method="GET" action="{{ route('profile.edit') }}">
-                <center><div style="color:lightblue">{{ Auth::user()->name }}</div></center>
-                @csrf
-                <button type="submit" class="d-flex align-items-center gap-2 dropdown-item btn btn-link text-decoration-none text-left">
-                  <i class="ti ti-user fs-6"></i>
-                  <p class="mb-0 fs-3">{{ __('Profile') }}</p>
+          <!-- Header Start -->
+    <header class="app-header">
+      <nav class="navbar navbar-expand-lg navbar-light">
+        <ul class="navbar-nav">
+          <li class="nav-item d-block d-xl-none">
+            <a class="nav-link sidebartoggler" id="headerCollapse" href="javascript:void(0)">
+              <i class="ti ti-menu-2"></i>
+            </a>
+          </li>
+        </ul>
+        <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
+          <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
+            <!-- Barre de recherche -->
+            <li class="nav-item">
+              <form class="d-flex" method="GET" action="">
+                <input class="form-control me-2" type="search" placeholder="Rechercher" aria-label="Search" name="query">
+                <button class="btn btn-outline-primary" type="submit">
+                  <i class="ti ti-search"></i> <!-- Icône de recherche -->
                 </button>
               </form>
-              <form method="POST" action="{{ route('logout') }}">
-                @csrf
-                <button type="submit" class="d-flex align-items-center gap-2 dropdown-item btn btn-link text-decoration-none text-left" onclick="event.preventDefault(); this.closest('form').submit();">
-                  <i class="ti ti-mail fs-6"></i>
-                  <p class="mb-0 fs-3">{{ __('Log Out') }}</p>
-                </button>
-              </form>
-            </div>
-          </div>
-        </li>
-      </ul>
-    </div>
-  </nav>
-</header>
-<!-- Header End -->
+            </li>
+            <!-- Profil dropdown -->
+            <li class="nav-item dropdown">
+              <a class="nav-link" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="../assets/images/profile/user-1.jpg" alt="" width="35" height="35" class="rounded-circle">
+              </a>
+              <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
+                <div class="message-body">
+                  <form method="GET" action="{{ route('profile.edit') }}">
+                    <center><div style="color:lightblue">{{ Auth::user()->name }}</div></center>
+                    @csrf
+                    <button type="submit" class="d-flex align-items-center gap-2 dropdown-item btn btn-link text-decoration-none text-left">
+                      <i class="ti ti-user fs-6"></i>
+                      <p class="mb-0 fs-3">{{ __('Profile') }}</p>
+                    </button>
+                  </form>
+                  <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit" class="d-flex align-items-center gap-2 dropdown-item btn btn-link text-decoration-none text-left" onclick="event.preventDefault(); this.closest('form').submit();">
+                      <i class="ti ti-mail fs-6"></i>
+                      <p class="mb-0 fs-3">{{ __('Log Out') }}</p>
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <!-- Header End -->
 
 
       <!-- Articles Section -->
@@ -403,16 +403,17 @@
                   <img src="{{ $article->image ? asset('storage/images/' . $article->image) : 'https://via.placeholder.com/800x400' }}" 
                        alt="Image de l'article" class="article-image">
                   <h1 class="title">{{ $article->title }}</h1>
-                  @foreach($categories as $category)
+                  @foreach($article->categories as $category)
                       <h6>{{ $category->name }}</h6>
                   @endforeach
+            
                   <div class="excerpt">
                       <label for="content">{{ $article->excerpt }}</label>
                   </div>
                   <div class="datetime" style="color:blue">
                       <label for="datetime">{{ $article->published_at }}</label>
                   </div>
-                  <label>{{ $article->user->name }}</label>
+                  <label style="color:black">{{ $article->user->name }}</label>
                   <a href="{{ route('articles.show', $article->id) }}" class="read-more">Lire la suite</a>
               </article>
           @endforeach

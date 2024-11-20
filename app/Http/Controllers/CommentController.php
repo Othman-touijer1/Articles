@@ -11,16 +11,14 @@ class CommentController extends Controller
 {
     public function store(Request $request, $articleId)
     {
-        // Valider les données du commentaire
+       
         $request->validate([
             'comment' => 'required|string|max:1000',
         ]);
-
-        // Créer le commentaire
         Comment::create([
             'comment' => $request->comment,
             'article_id' => $articleId,
-            'user_id' => Auth::id(), // Assurez-vous que l'utilisateur est authentifié
+            'user_id' => Auth::id(), 
         ]);
 
         return redirect()->route('articles.show', $articleId)->with('success', 'Commentaire ajouté avec succès!');

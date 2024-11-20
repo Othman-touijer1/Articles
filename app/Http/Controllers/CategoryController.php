@@ -23,10 +23,7 @@ class CategoryController extends Controller
     }  
     public function edit($id)
     {
-        // Récupérer la catégorie par son ID, ou une erreur 404 si elle n'existe pas
         $category = Category::findOrFail($id);
-
-        // Retourner la vue avec la catégorie à modifier
         return view('categories.editer', compact('category'));
     }
     public function update(Request $request, $id)

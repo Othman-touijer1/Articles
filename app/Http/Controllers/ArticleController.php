@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Category;
 use App\Models\Article;
-
+use App\Http\Requests\StoreArticleRequest;
+use App\Http\Requests\UpdateArticleRequest;
 //$article->categories()->sync($request->categories);
 
 
@@ -30,77 +31,52 @@ class ArticleController extends Controller
         return view('articles.ajouter', compact('categories'));
     }
 
-    public function store(Request $request)
-    {
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'excerpt' => 'required|string',
-            'content' => 'required',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif',
-            'categories' => 'array',
-            'datetime' => 'required|date', // Ajoute une validation pour la date
-        ]);
+    public function store(StoreArticleRequest $request)
+{
+    $article = new Article();
+    $article->fill($request->only(['title', 'excerpt', 'content']));
+    $article->user()->associate(auth()->user());
+    $article->published_at = $request->datetime;  // Use the date from the form
 
-        // Sauvegarder l'article
-        $article = new Article();
-        $article->fill($request->only(['title', 'excerpt', 'content']));
-        $article->user_id = auth()->id();
-        $article->published_at = $request->datetime;  // Utilisation de la date du formulaire
-
-        // Gestion de l'image
-        if ($request->hasFile('image') && $request->file('image')->isValid()) {
-            // Stocker l'image dans le répertoire public
-            $imagePath = $request->file('image')->store('public/images');
-            // Sauvegarder le nom de l'image dans la base de données
-            $article->image = basename($imagePath);  // Ne garde que le nom du fichier
-        }
-
-        $article->save();
-
-        // Associer les catégories
-        if ($request->has('categories')) {
-            $article->categories()->sync($request->categories);
-        }
-
-        return redirect('/home');
+    if ($request->hasFile('image') && $request->file('image')->isValid()) {
+        // Store the image in the public directory
+        $imagePath = $request->file('image')->store('public/images');
+        $article->image = basename($imagePath);  // Store only the file name
     }
+
+    $article->save();
+
+    if ($request->has('categories')) {
+        $article->categories()->sync($request->categories);
+    }
+
+    return redirect('/home');
+}
     public function edit($id)
     {
         $article = Article::findOrFail($id);
         $categories = Category::all();
         return view('articles.editer', compact('article', 'categories'));
     }
-    public function update(Request $request, $id)
-    {
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'excerpt' => 'required|string',
-            'content' => 'required',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif',
-            'categories' => 'array',
-            'datetime' => 'required|date',
-        ]);
+    public function update(UpdateArticleRequest $request, $id)
+{
+    $article = Article::findOrFail($id);
+    $article->fill($request->only(['title', 'excerpt', 'content']));
+    $article->published_at = $request->datetime;
 
-        // Trouver l'article à modifier
-        $article = Article::findOrFail($id);
-        $article->fill($request->only(['title', 'excerpt', 'content']));
-        $article->published_at = $request->datetime;
+    if ($request->hasFile('image') && $request->file('image')->isValid()) {
+        $imagePath = $request->file('image')->store('public/images');
+        $article->image = basename($imagePath);
+    }
 
-        // Gestion de l'image
-        if ($request->hasFile('image') && $request->file('image')->isValid()) {
-            $imagePath = $request->file('image')->store('public/images');
-            $article->image = basename($imagePath);
-        }
+    $article->save();
 
-        $article->save();
+    if ($request->has('categories')) {
+        $article->categories()->sync($request->categories);
+    }
 
-        // Associer les catégories
-        if ($request->has('categories')) {
-            $article->categories()->sync($request->categories);
-        }
-
-        return redirect('/home');
-    }  
+    return redirect('/home');
+}
     public function destroy($id)
     {
         $article = Article::findOrFail($id);

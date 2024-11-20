@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Partager un Article</title>
     <style>
-        /* Réinitialisation des marges et des paddings */
         * {
             margin: 0;
             padding: 0;
@@ -18,24 +17,24 @@
             background-color: #2a3d47;;
             color: #333;
             display: flex;
-            justify-content: center; /* Centrer horizontalement */
-            align-items: center;     /* Centrer verticalement */
-            height: 120vh;           /* Prendre toute la hauteur de la fenêtre */
+            justify-content: center;
+            align-items: center;     
+            height: 120vh;           
             margin: 0;
-            padding: 10px;           /* Réduire le padding global */
+            padding: 10px;          
         }
 
         /* Formulaire */
         .form-container {
             background-color: #fff;
-            border-radius: 8px;      /* Réduire le rayon des bords */
+            border-radius: 8px;      
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-            padding: 20px;           /* Réduire le padding du formulaire */
+            padding: 20px;           
             width: 100%;
-            max-width: 500px;        /* Réduire la largeur du formulaire */
+            max-width: 500px;        
             display: flex;
             flex-direction: column;
-            gap: 12px;               /* Espacement entre les éléments */
+            gap: 12px;               
         }
 
         /* Champs de saisie */
@@ -43,10 +42,10 @@
         .form-container textarea,
         .form-container select {
             width: 100%;
-            padding: 12px;           /* Réduire le padding interne */
-            border-radius: 8px;      /* Réduire le rayon des bords */
+            padding: 12px;           
+            border-radius: 8px;      
             border: 2px solid #e0e7ff;
-            font-size: 0.9rem;       /* Réduire la taille de la police */
+            font-size: 0.9rem;       
             color: #333;
             background-color: #f9fafb;
             transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
@@ -66,36 +65,36 @@
         /* Zone de texte */
         .form-container textarea {
             resize: vertical;
-            min-height: 150px;       /* Réduire la hauteur minimum */
+            min-height: 150px;       
         }
 
         /* Champ de fichier */
         .form-container input[type="file"] {
             background-color: #f7f7f7;
             border: 1px solid #ddd;
-            font-size: 0.9rem;        /* Réduire la taille de la police */
-            padding: 10px;            /* Réduire le padding */
-            border-radius: 8px;      /* Réduire le rayon des bords */
+            font-size: 0.9rem;        
+            padding: 10px;            
+            border-radius: 8px;      
         }
 
         /* Boutons */
         .form-container button {
-            padding: 10px 18px;      /* Réduire les espacements du bouton */
+            padding: 10px 18px;      
             background-color: #5c6bc0;
             color: white;
             border: none;
-            border-radius: 25px;     /* Réduire le rayon des bords */
-            font-size: 0.95rem;       /* Réduire la taille de la police */
+            border-radius: 25px;     
+            font-size: 0.95rem;       
             font-weight: 600;
             cursor: pointer;
             transition: background-color 0.3s, transform 0.3s ease;
-            margin-top: 16px;         /* Réduire l'espacement entre les boutons */
+            margin-top: 16px;         
         }
 
         /* Bouton retour */
         .form-container .back-button {
             background-color: #f44336;
-            margin-right: 12px;       /* Réduire l'espacement entre les boutons */
+            margin-right: 12px;      
         }
 
         /* Effet au survol des boutons */
@@ -111,37 +110,37 @@
 
         /* Labels */
         .form-container label {
-            font-size: 1rem;          /* Réduire la taille des labels */
+            font-size: 1rem;          
             font-weight: 600;
             color: #444;
-            margin-bottom: 6px;       /* Réduire l'espacement sous le label */
+            margin-bottom: 6px;       
             text-transform: capitalize;
         }
 
         /* Messages d'erreur */
         .error {
             color: #f44336;
-            font-size: 0.85rem;       /* Réduire la taille du texte d'erreur */
+            font-size: 0.85rem;      
             margin-top: 4px;
         }
 
         /* Responsivité mobile */
         @media (max-width: 768px) {
             body {
-                padding: 8px;         /* Réduire le padding sur mobile */
+                padding: 8px;         
             }
 
             .form-container {
                 width: 100%;
-                padding: 12px;        /* Réduire le padding du formulaire */
+                padding: 12px;        
             }
 
             header h1 {
-                font-size: 1.6rem;     /* Réduire la taille des titres */
+                font-size: 1.6rem;     
             }
 
             .form-container button {
-                width: 100%;           /* Rendre les boutons responsives */
+                width: 100%;           
             }
         }
     </style>
@@ -149,36 +148,36 @@
 
 <body>
 
-    <!-- Formulaire de partage d'article -->
+    
     <div class="form-container">
         <form action="{{ route('store') }}" method="POST" enctype="multipart/form-data">
             @csrf
-            <!-- Titre -->
+            
             <div>
                 <label for="title">Titre de l'article</label>
                 <input type="text" id="title" name="title" required placeholder="Entrez le titre de l'article" aria-required="true" aria-describedby="titleHelp">
                 <small id="titleHelp">Assurez-vous d'un titre clair et concis.</small>
             </div>
 
-            <!-- Auteur -->
+            
             <div>
                 <label for="author">Auteur</label>
                 <input type="text" id="author" name="author" required placeholder="Entrez votre nom" aria-required="true" value="{{ Auth::user()->name }}">
             </div>
 
-            <!-- Extrait -->
+            
             <div>
                 <label for="excerpt">Extrait</label>
                 <textarea id="excerpt" name="excerpt" required placeholder="Entrez un extrait de votre article" aria-required="true"></textarea>
             </div>
 
-            <!-- Contenu -->
+            
             <div>
                 <label for="content">Contenu de l'article</label>
                 <textarea id="content" name="content" required placeholder="Rédigez le contenu complet de votre article" aria-required="true"></textarea>
             </div>
 
-            <!-- Catégorie -->
+            
             <div>
                 <label for="category">Catégorie de l'article</label>
                 <select id="category" name="category" required aria-required="true">
@@ -190,25 +189,25 @@
                
             </div>
 
-            <!-- Image -->
+           
             <div>
                 <label for="image">Image de l'article</label>
                 <input type="file" id="image" name="image" accept="image/*" aria-label="Choisir une image pour l'article">
             </div>
 
-            <!-- Date et Heure -->
+            
             <div>
                 <label for="datetime">Date et Heure de publication</label>
                 <input type="datetime-local" id="datetime" name="datetime" required>
             </div>
 
-            <!-- Boutons -->
+            
             <div style="display: flex; justify-content: space-between;">
-                <!-- Bouton retour -->
+                
                 <a href="/home">
                     <button type="button" class="back-button" onclick="window.history.back();">Retour</button>
                 </a>
-                <!-- Bouton publier -->
+                
                 <button type="submit">Publier l'Article</button>
             </div>
         </form>

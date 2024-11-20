@@ -401,8 +401,8 @@
 
                   <!-- Titre de l'article -->
                   <h1 class="title">{{ $article->title }}</h1>
-                  @foreach($categories as $category)
-                  <h6>{{ $category->name}}</h6>
+                  @foreach($article->categories as $category)
+                      <h6>{{ $category->name }}</h6>
                   @endforeach
             
 
@@ -417,7 +417,7 @@
                   </div> -->
 
                   <!-- Date de publication -->
-                  <div>
+                  <div style="color:blue"> 
                       <label for="datetime">{{ $article->published_at }}</label>
                   </div>
 
