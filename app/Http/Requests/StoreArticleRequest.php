@@ -13,7 +13,7 @@ class StoreArticleRequest extends FormRequest
     {
         return auth()->check();
     }
-
+    // important 
     /**
      * Get the validation rules that apply to the request.
      *
