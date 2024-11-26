@@ -21,9 +21,6 @@ use App\Http\Controllers\CommentController;
 Route::get('/', function () {
     return view('welcome');
 });
-
-
-
 Route::get('/ajouter', [ArticleController::class, 'ajouterarticle'])->name('ajouter');
 Route::post('/home', [ArticleController::class, 'store'])->name('store');
 Route::get('/home',  [ArticleController::class, 'home11'])->name('home');
@@ -37,10 +34,8 @@ Route::get('/articles/{id}', [ArticleController::class, 'show'])->name('articles
 //comment
 Route::post('/articles/{article}/comments', [CommentController::class, 'store'])->name('comments.store');
 
-
-
-
 Route::get('acceuil', [ArticleController::class, 'acceuile']);
+
 
 
 

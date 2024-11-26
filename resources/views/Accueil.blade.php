@@ -16,7 +16,6 @@
       box-sizing: border-box;
       background-color: #f4f6f9;
     }
-
     /* Personnalisation du bouton "Partager votre article" */
     .custom-button {
       padding: 12px 25px;
@@ -356,14 +355,22 @@
         <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
           <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
             <!-- Barre de recherche -->
-            <li class="nav-item">
-              <form class="d-flex" method="GET" action="">
-                <input class="form-control me-2" type="search" placeholder="Rechercher" aria-label="Search" name="query">
+
+
+
+            <form class="d-flex" method="GET" action="">
+                <input class="form-control me-2" type="search" placeholder="Rechercher" aria-label="Search" name="search" value="">
                 <button class="btn btn-outline-primary" type="submit">
-                  <i class="ti ti-search"></i> <!-- Icône de recherche -->
+                    <i class="ti ti-search"></i> <!-- Search icon -->
                 </button>
-              </form>
-            </li>
+            </form>
+
+
+
+
+
+
+
             <!-- Profil dropdown -->
             <li class="nav-item dropdown">
               <a class="nav-link" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown" aria-expanded="false">
@@ -403,13 +410,12 @@
                   <img src="{{ $article->image ? asset('storage/images/' . $article->image) : 'https://via.placeholder.com/800x400' }}" 
                        alt="Image de l'article" class="article-image">
                   <h1 class="title">{{ $article->title }}</h1>
-                  @foreach($article->categories as $category)
-                      <h6>{{ $category->name }}</h6>
-                  @endforeach
-            
                   <div class="excerpt">
                       <label for="content">{{ $article->excerpt }}</label>
                   </div>
+                  @foreach($article->categories as $category)
+                      <h6>{{ $category->name }}</h6>
+                  @endforeach
                   <div class="datetime" style="color:blue">
                       <label for="datetime">{{ $article->published_at }}</label>
                   </div>
@@ -418,7 +424,6 @@
               </article>
           @endforeach
       </div>
-
     </div>
   </div>
 

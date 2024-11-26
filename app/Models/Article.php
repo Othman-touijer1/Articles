@@ -24,7 +24,10 @@ class Article extends Model
     {
         return $this->belongsToMany(Category::class, 'article_category');
     }
-
+    public function category()
+    {
+        return $this->belongsTo(Category::class); // Assuming 'articles' table has a 'category_id' foreign key
+    }
     
 
 

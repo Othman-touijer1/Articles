@@ -182,18 +182,18 @@
     </div>
 
     <!-- Affichage des catégories de l'article -->
-    @if($article->categories->count() > 0)
+    <!-- @if($article->categories->count() > 0) -->
         <div class="article-categories mt-3">
             <h3>Catégories :</h3>
             <ul>
                 @foreach($article->categories as $category)
-                    <li>{{ $category->name }}</li>
+                <td>{{ $category->name }}</td>
                 @endforeach
             </ul>
         </div>
-    @else
+    <!-- @else
         <p>Aucune catégorie associée à cet article.</p>
-    @endif
+    @endif -->
 
     <!-- Boutons d'action : Retour, Like, Dislike -->
     <div class="mt-4">

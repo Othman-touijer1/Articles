@@ -14,4 +14,12 @@ class Category extends Model
     {
         return $this->belongsToMany(Article::class, 'article_category');
     }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+    public function articles1()
+    {
+        return $this->hasMany(Article::class); // A category has many articles
+    }
 }

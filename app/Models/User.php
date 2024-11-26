@@ -9,7 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable
+class User extends Authenticatable 
 {
     use HasApiTokens, HasFactory, Notifiable;
     use HasFactory, HasRoles;  // Ajoutez HasRoles ici
@@ -25,28 +25,31 @@ class User extends Authenticatable
         'password',
     ];
 
-
-
-
-
-    public function articles()
+    public function category()
     {
-        return $this->hasMany(Article::class);
-    }
-    public function isAdmin()
-    {
-        return $this->role === 'admin';
+        return $this->belongsTo(Category::class);
     }
 
-    public function isEditor()
-    {
-        return $this->role === 'editor';
-    }
 
-    public function isViewer()
-    {
-        return $this->role === 'viewer';
-    }
+
+    // public function articles()
+    // {
+    //     return $this->hasMany(Article::class);
+    // }
+    // public function isAdmin()
+    // {
+    //     return $this->role === 'admin';
+    // }
+
+    // public function isEditor()
+    // {
+    //     return $this->role === 'editor';
+    // }
+
+    // public function isViewer()
+    // {
+    //     return $this->role === 'viewer';
+    // }
 
 
 

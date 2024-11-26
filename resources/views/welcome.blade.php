@@ -13,16 +13,16 @@
             box-sizing: border-box;
         }
 
-        /* Définition du fond de la page avec un dégradé */
+        /* Définition du fond de la page avec un dégradé plus subtil */
         body {
-            height: 100vh; /* 100% de la hauteur de la fenêtre */
+            height: 100vh;
             display: flex;
-            justify-content: center; /* Centre horizontalement */
-            align-items: center; /* Centre verticalement */
-            background: linear-gradient(135deg, #6e7bff, #00d2ff); /* Dégradé moderne */
-            font-family: 'Poppins', sans-serif; /* Police moderne */
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #5A6DFF, #2AC6FF); /* Dégradé subtil */
+            font-family: 'Poppins', sans-serif;
             color: #fff;
-            flex-direction: column; /* Permet de mettre les éléments verticalement */
+            flex-direction: column;
             text-align: center;
             overflow: hidden;
         }
@@ -32,22 +32,21 @@
             width: 100%;
             max-width: 900px;
             padding: 40px;
-            background-color: rgba(255, 255, 255, 0.9); /* Fond blanc semi-transparent pour lisibilité */
+            background-color: rgba(255, 255, 255, 0.9);
             border-radius: 12px;
             box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
-            backdrop-filter: blur(10px); /* Ajout de flou pour l'effet glassmorphism */
+            backdrop-filter: blur(10px);
         }
 
         /* Titre principal */
         .big-title {
-            font-size: 3rem; /* Taille du titre plus réduite */
-            color: #007BFF; /* Couleur bleu du titre */
+            font-size: 3rem;
+            color: #007BFF;
             font-weight: 700;
             margin-bottom: 20px;
             animation: slideIn 1s ease-out;
         }
 
-        /* Animation du titre */
         @keyframes slideIn {
             0% {
                 opacity: 0;
@@ -66,9 +65,9 @@
             line-height: 1.8;
             margin-bottom: 30px;
             animation: fadeIn 2s ease-in-out;
+            text-align: center;
         }
 
-        /* Animation de la description */
         @keyframes fadeIn {
             0% {
                 opacity: 0;
@@ -76,6 +75,33 @@
             100% {
                 opacity: 1;
             }
+        }
+
+        /* Style des boutons sous le titre */
+        .buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 8px;
+            background-color: #007BFF;
+            color: white;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
         }
 
         /* Section d'article */
@@ -106,37 +132,10 @@
             line-height: 1.6;
         }
 
-        /* Style des boutons sous le titre */
-        .buttons {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            margin-top: 30px;
-        }
-
-        .btn {
-            padding: 12px 30px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            text-decoration: none;
-            border-radius: 8px;
-            background-color: #007BFF;
-            color: white;
-            text-align: center;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-        }
-
-        .btn:hover {
-            background-color: #0056b3;
-            transform: translateY(-3px);
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
-        }
-
         /* Pour les écrans plus petits */
         @media (max-width: 768px) {
             .big-title {
-                font-size: 2.5rem; /* Taille plus petite pour les petits écrans */
+                font-size: 2.5rem;
             }
 
             .content {
@@ -148,19 +147,31 @@
                 gap: 10px;
             }
         }
+
+        /* Amélioration de l'accessibilité pour les contrastes */
+        .content, .btn, .description {
+            color: #333; /* Assurez-vous que le texte est plus lisible */
+        }
+
     </style>
 </head>
 <body>
     <div class="content">
+        <!-- Logo -->
+        <div style="margin-bottom:30px; height: 22px;" >
+            <img src="../assets/images/logos/logo.svg" alt="Logo" />
+        </div>
+        
+
         <!-- Titre principal -->
         <h1 class="big-title">Découvrez les articles partagés par notre communauté !</h1>
-        
+
         <!-- Description du site -->
         <p class="description">
             Partagez vos articles, découvrez les publications des autres et échangez des idées avec notre communauté. Que vous soyez passionné par un sujet ou que vous souhaitiez simplement partager vos découvertes, ce site est fait pour vous !
         </p>
 
-        <!-- Boutons sous le titre -->
+        <!-- Section de boutons -->
         <div class="buttons">
             @if (Route::has('login'))
                 <div class="sm:fixed sm:top-0 sm:right-0 p-6 text-right z-10">
