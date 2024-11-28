@@ -7,16 +7,6 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CommentController;
 
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
 
 Route::get('/', function () {
     return view('welcome');
@@ -37,12 +27,6 @@ Route::post('/articles/{article}/comments', [CommentController::class, 'store'])
 Route::get('acceuil', [ArticleController::class, 'acceuile']);
 
 
-
-
-
-
-
-
 Route::get('/affichercategories', [CategoryController::class, 'afficher'])->name('afficher');
 Route::post('/affichercategories', [CategoryController::class, 'store'])->name('categorie.store');
 Route::get('/categorie/{id}/edit', [CategoryController::class, 'edit'])->name('categorie.edit');
@@ -50,10 +34,11 @@ Route::put('/categorie/{id}', [CategoryController::class, 'update'])->name('cate
 Route::get('/categorie/{id}', [CategoryController::class, 'destroy'])->name('categorie.destroy');
 
 
+Route::get('/home', [ArticleController::class, 'userarticle'])->name('user.article');
 
 
 
-
+// Route::get('/barber/{barberName}', [ListeController::class, 'barberReservations'])->name('barber.reservations');
 
 
 

@@ -10,6 +10,8 @@ use App\Http\Requests\UpdateArticleRequest;
 use Spatie\Permission\Models\Role; // IMPORTER LA CLASSE Role
 use Spatie\Permission\Models\Permission; // IMPORTER LA CLASSE Permission
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+
 
 class ArticleController extends Controller 
 {
@@ -27,12 +29,12 @@ class ArticleController extends Controller
     //     $this->middleware('checkPermission:edit')->only('edit', 'update');
     //     $this->middleware('checkPermission:delete')->only('destroy');
     // }
-    public function __construct()
-    {
-        $this->middleware('can:add-article')->only('ajouterarticle', 'store'); // Only user 1 can add articles
-        $this->middleware('can:edit-article')->only('edit', 'update'); // User 1 and 2 can edit
-        $this->middleware('can:delete-article')->only('destroy'); // User 1 and 3 can delete
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('can:add-article')->only('ajouterarticle', 'store'); // Only user 1 can add articles
+    //     $this->middleware('can:edit-article')->only('edit', 'update'); // User 1 and 2 can edit
+    //     $this->middleware('can:delete-article')->only('destroy'); // User 1 and 3 can delete
+    // }
 
 
     public function acceuile()
@@ -51,31 +53,31 @@ class ArticleController extends Controller
 
     public function ajouterarticle()
     {
-        $this->authorize('create', Article::class); // This will use the ArticlePolicy
+        // $this->authorize('create', Article::class); // This will use the ArticlePolicy
         $categories = Category::all();
         return view('articles.ajouter', compact('categories'));
     }
+public function store(StoreArticleRequest $request)
+{
+    // Check if the user has permission to add an article
+    // $this->authorize('create', Article::class); // This will use the ArticlePolicy
+    // if (!auth()->user()->can('create articles')) {
+//     //     abort(403, 'Vous n\'avez pas la permission de créer un article');
+//     // }
 
-    public function store(StoreArticleRequest $request)
-    {
-        $this->authorize('create', Article::class); 
-        // if (!auth()->user()->can('create articles')) {
-    //     //     abort(403, 'Vous n\'avez pas la permission de créer un article');
-    //     // }
+    $article = new Article();
+    $article->fill($request->only(['title', 'excerpt', 'content']));
+    $article->user()->associate(auth()->user());
+    $article->published_at = $request->datetime;
 
-        $article = new Article();
-        $article->fill($request->only(['title', 'excerpt', 'content']));
-        $article->user()->associate(auth()->user());
-        $article->published_at = $request->datetime;
-
-        if ($request->hasFile('image') && $request->file('image')->isValid()) {
-            $imagePath = $request->file('image')->store('public/images');
-            $article->image = basename($imagePath);
-        }
-
-        $article->save();
-        return redirect('/home');
+    if ($request->hasFile('image') && $request->file('image')->isValid()) {
+        $imagePath = $request->file('image')->store('public/images');
+        $article->image = basename($imagePath);
     }
+
+    $article->save();
+    return redirect('/home');
+}
 
 
     public function edit($id)
@@ -130,5 +132,16 @@ class ArticleController extends Controller
     {
         $article = Article::with('user', 'categories')->findOrFail($id);
         return view('articles.show', compact('article'));
-    }   
+    }
+
+
+    public function userarticle()
+{
+    if (Auth::check()) {
+        $articles = Auth::user()->articles;
+        return view('home', compact('articles'));
+    } else {
+        return redirect()->route('login');
+    }
+}
 }

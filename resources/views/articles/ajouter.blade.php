@@ -14,27 +14,67 @@
         /* Style global */
         body {
             font-family: 'Roboto', sans-serif;
-            background-color: #2a3d47;;
+            background: linear-gradient(135deg, #5A6DFF, #2AC6FF); /* Dégradé subtil */
             color: #333;
             display: flex;
             justify-content: center;
-            align-items: center;     
-            height: 120vh;           
+            align-items: center;
+            height: 120vh;
             margin: 0;
-            padding: 10px;          
+            padding: 10px;
+            flex-direction: column; /* Permet de centrer le titre et le formulaire verticalement */
+        }
+
+        /* Titre en haut de la page */
+        header {
+            width: 100%;
+            text-align: center;
+            margin-bottom: 30px; /* Espacement entre le titre et le formulaire */
+        }
+
+        header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #2a3d47;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         /* Formulaire */
         .form-container {
             background-color: #fff;
-            border-radius: 8px;      
+            border-radius: 8px;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-            padding: 20px;           
+            padding: 20px;
             width: 100%;
-            max-width: 500px;        
+            max-width: 900px; /* Augmenter la largeur du formulaire */
             display: flex;
             flex-direction: column;
-            gap: 12px;               
+            gap: 12px;
+            opacity: 0; /* Initialement invisible */
+            animation: fadeIn 1s forwards 1s; /* Animation d'apparition après 1 seconde */
+        }
+
+        /* Animation de fondu */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Disposition des champs en 2 colonnes */
+        .form-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px; /* Espace entre les deux colonnes */
+        }
+
+        /* Conteneur des champs */
+        .form-column {
+            flex: 1;
         }
 
         /* Champs de saisie */
@@ -42,10 +82,10 @@
         .form-container textarea,
         .form-container select {
             width: 100%;
-            padding: 12px;           
-            border-radius: 8px;      
+            padding: 12px;
+            border-radius: 8px;
             border: 2px solid #e0e7ff;
-            font-size: 0.9rem;       
+            font-size: 0.9rem;
             color: #333;
             background-color: #f9fafb;
             transition: border-color 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
@@ -65,36 +105,36 @@
         /* Zone de texte */
         .form-container textarea {
             resize: vertical;
-            min-height: 150px;       
+            min-height: 150px;
         }
 
         /* Champ de fichier */
         .form-container input[type="file"] {
             background-color: #f7f7f7;
             border: 1px solid #ddd;
-            font-size: 0.9rem;        
-            padding: 10px;            
-            border-radius: 8px;      
+            font-size: 0.9rem;
+            padding: 10px;
+            border-radius: 8px;
         }
 
         /* Boutons */
         .form-container button {
-            padding: 10px 18px;      
+            padding: 10px 18px;
             background-color: #5c6bc0;
             color: white;
             border: none;
-            border-radius: 25px;     
-            font-size: 0.95rem;       
+            border-radius: 25px;
+            font-size: 0.95rem;
             font-weight: 600;
             cursor: pointer;
             transition: background-color 0.3s, transform 0.3s ease;
-            margin-top: 16px;         
+            margin-top: 16px;
         }
 
         /* Bouton retour */
         .form-container .back-button {
             background-color: #f44336;
-            margin-right: 12px;      
+            margin-right: 12px;
         }
 
         /* Effet au survol des boutons */
@@ -110,37 +150,42 @@
 
         /* Labels */
         .form-container label {
-            font-size: 1rem;          
+            font-size: 1rem;
             font-weight: 600;
             color: #444;
-            margin-bottom: 6px;       
+            margin-bottom: 6px;
             text-transform: capitalize;
         }
 
         /* Messages d'erreur */
         .error {
             color: #f44336;
-            font-size: 0.85rem;      
+            font-size: 0.85rem;
             margin-top: 4px;
         }
 
         /* Responsivité mobile */
         @media (max-width: 768px) {
             body {
-                padding: 8px;         
+                padding: 8px;
             }
 
             .form-container {
                 width: 100%;
-                padding: 12px;        
-            }
-
-            header h1 {
-                font-size: 1.6rem;     
+                padding: 12px;
             }
 
             .form-container button {
-                width: 100%;           
+                width: 100%;
+            }
+
+            .form-row {
+                flex-direction: column;
+            }
+
+            .form-column {
+                flex: none;
+                width: 100%;
             }
         }
     </style>
@@ -148,66 +193,68 @@
 
 <body>
 
-    
+    <!-- Titre en haut de la page -->
+    <header>
+        <h1>Ajouter un Article</h1>
+    </header>
+
     <div class="form-container">
         <form action="{{ route('store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             
-            <div>
-                <label for="title">Titre de l'article</label>
-                <input type="text" id="title" name="title" required placeholder="Entrez le titre de l'article" aria-required="true" aria-describedby="titleHelp">
-                <small id="titleHelp">Assurez-vous d'un titre clair et concis.</small>
+            <!-- Première ligne de champs -->
+            <div class="form-row">
+                <div class="form-column">
+                    <div>
+                        <label for="title">Titre de l'article</label>
+                        <input type="text" id="title" name="title" required placeholder="Entrez le titre de l'article" aria-required="true" aria-describedby="titleHelp">
+                        <small id="titleHelp">Assurez-vous d'un titre clair et concis.</small>
+                    </div>
+
+                    <div>
+                        <label for="author">Auteur</label>
+                        <input type="text" id="author" name="author" required placeholder="Entrez votre nom" aria-required="true" value="{{ Auth::user()->name }}">
+                    </div>
+
+                    <div>
+                        <label for="excerpt">Extrait</label>
+                        <textarea id="excerpt" name="excerpt" required placeholder="Entrez un extrait de votre article" aria-required="true"></textarea>
+                    </div>
+                </div>
+
+                <!-- Deuxième colonne -->
+                <div class="form-column">
+                    <div>
+                        <label for="content">Contenu de l'article</label>
+                        <textarea id="content" name="content" required placeholder="Rédigez le contenu complet de votre article" aria-required="true"></textarea>
+                    </div>
+
+                    <div>
+                        <label for="category">Catégorie de l'article</label>
+                        <select id="category" name="category" required aria-required="true">
+                            <option value="" disabled selected>Sélectionnez une catégorie</option>
+                            @foreach($categories as $category)
+                                <option value="{{ $category->name }}">{{ $category->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div>
+                        <label for="image">Image de l'article</label>
+                        <input type="file" id="image" name="image" accept="image/*" aria-label="Choisir une image pour l'article">
+                    </div>
+                </div>
             </div>
 
-            
-            <div>
-                <label for="author">Auteur</label>
-                <input type="text" id="author" name="author" required placeholder="Entrez votre nom" aria-required="true" value="{{ Auth::user()->name }}">
-            </div>
-
-            
-            <div>
-                <label for="excerpt">Extrait</label>
-                <textarea id="excerpt" name="excerpt" required placeholder="Entrez un extrait de votre article" aria-required="true"></textarea>
-            </div>
-
-            
-            <div>
-                <label for="content">Contenu de l'article</label>
-                <textarea id="content" name="content" required placeholder="Rédigez le contenu complet de votre article" aria-required="true"></textarea>
-            </div>
-
-            
-            <div>
-                <label for="category">Catégorie de l'article</label>
-                <select id="category" name="category" required aria-required="true">
-                    <option value="" disabled selected>Sélectionnez une catégorie</option>
-                    @foreach($categories as $category)
-                    <option value="{{ $category->name }}">{{ $category->name }}</option>
-                    @endforeach
-                </select>
-               
-            </div>
-
-           
-            <div>
-                <label for="image">Image de l'article</label>
-                <input type="file" id="image" name="image" accept="image/*" aria-label="Choisir une image pour l'article">
-            </div>
-
-            
             <div>
                 <label for="datetime">Date et Heure de publication</label>
                 <input type="datetime-local" id="datetime" name="datetime" required>
             </div>
 
-            
             <div style="display: flex; justify-content: space-between;">
-                
                 <a href="/home">
                     <button type="button" class="back-button" onclick="window.history.back();">Retour</button>
                 </a>
-                
                 <button type="submit">Publier l'Article</button>
             </div>
         </form>

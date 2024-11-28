@@ -45,8 +45,3 @@
         </div>
     </form>
 </x-guest-layout>
-<style>
-    body{
-        background-color:blue;
-    }
-</style>

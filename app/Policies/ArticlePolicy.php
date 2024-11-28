@@ -7,9 +7,7 @@ use Illuminate\Auth\Access\HandlesAuthorization;
 
 class ArticlePolicy
 {
-    use HandlesAuthorization;
-
-   
+    use HandlesAuthorization;  
     public function create(User $user)
     {
         return $user->id === 10; 
@@ -23,4 +21,3 @@ class ArticlePolicy
         return $user->id === 10 || $user->id === 12; 
     }
 }
-

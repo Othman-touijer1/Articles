@@ -391,6 +391,7 @@
       <!-- Header End -->
 
       <!-- Articles Section -->
+      <center><h1>Articles pour {{ Auth::user()->name }}</h1></center>
       <div class="articles-container" style="margin_top:24px">
           @foreach($articles as $article)
               <article class="article">

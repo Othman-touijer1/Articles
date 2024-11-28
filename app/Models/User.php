@@ -32,10 +32,10 @@ class User extends Authenticatable
 
 
 
-    // public function articles()
-    // {
-    //     return $this->hasMany(Article::class);
-    // }
+    public function articles()
+    {
+        return $this->hasMany(Article::class);
+    }
     // public function isAdmin()
     // {
     //     return $this->role === 'admin';

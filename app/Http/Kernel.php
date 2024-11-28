@@ -69,6 +69,8 @@ class Kernel extends HttpKernel
     protected $routeMiddleware = [
         // autres middlewares...
         'checkPermission' => \App\Http\Middleware\CheckUserPermission::class,
+        'check.article.owner' => \App\Http\Middleware\CheckArticleOwner::class,
+
     ];
 
 }

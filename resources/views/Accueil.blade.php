@@ -309,7 +309,7 @@
             </li>
             <li><span class="sidebar-divider lg"></span></li>
             <li class="sidebar-item">
-              <a class="sidebar-link" href="/home" aria-expanded="false">
+              <a class="sidebar-link" href="{{route('user.article')}}" aria-expanded="false">
                 <iconify-icon icon="solar:layers-minimalistic-bold-duotone"></iconify-icon>
                 <span class="hide-menu" style="color:white">Vos articles</span>
               </a>
