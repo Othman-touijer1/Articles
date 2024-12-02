@@ -41,14 +41,14 @@ class ArticleController extends Controller
     {
         $categories = Category::all();
         $articles = Article::with('user', 'categories')->latest()->get();
-        return view('Accueil', compact('articles', 'categories'));
+        return view('home.Accueil', compact('articles', 'categories'));
     }
 
     public function home11()
     {
         $categories = Category::all();
         $articles = Article::with('user', 'categories')->latest()->get();
-        return view('home', compact('articles', 'categories'));
+        return view('home.home', compact('articles', 'categories'));
     }
 
     public function ajouterarticle()
@@ -57,27 +57,27 @@ class ArticleController extends Controller
         $categories = Category::all();
         return view('articles.ajouter', compact('categories'));
     }
-public function store(StoreArticleRequest $request)
-{
-    // Check if the user has permission to add an article
-    // $this->authorize('create', Article::class); // This will use the ArticlePolicy
-    // if (!auth()->user()->can('create articles')) {
-//     //     abort(403, 'Vous n\'avez pas la permission de créer un article');
-//     // }
+    public function store(StoreArticleRequest $request)
+    {
+        
+        // $this->authorize('create', Article::class); // This will use the ArticlePolicy
+        // if (!auth()->user()->can('create articles')) {
+    //     //     abort(403, 'Vous n\'avez pas la permission de créer un article');
+    //     // }
 
-    $article = new Article();
-    $article->fill($request->only(['title', 'excerpt', 'content']));
-    $article->user()->associate(auth()->user());
-    $article->published_at = $request->datetime;
+        $article = new Article();
+        $article->fill($request->only(['title', 'excerpt', 'content']));
+        $article->user()->associate(auth()->user());
+        $article->published_at = $request->datetime;
 
-    if ($request->hasFile('image') && $request->file('image')->isValid()) {
-        $imagePath = $request->file('image')->store('public/images');
-        $article->image = basename($imagePath);
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            $imagePath = $request->file('image')->store('public/images');
+            $article->image = basename($imagePath);
+        }
+
+        $article->save();
+        return redirect('/home');
     }
-
-    $article->save();
-    return redirect('/home');
-}
 
 
     public function edit($id)
@@ -136,12 +136,12 @@ public function store(StoreArticleRequest $request)
 
 
     public function userarticle()
-{
-    if (Auth::check()) {
-        $articles = Auth::user()->articles;
-        return view('home', compact('articles'));
-    } else {
-        return redirect()->route('login');
+    {
+        if (Auth::check()) {
+            $articles = Auth::user()->articles;
+            return view('home.home', compact('articles'));
+        } else {
+            return redirect()->route('login');
+        }
     }
-}
 }

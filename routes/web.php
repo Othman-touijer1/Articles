@@ -38,10 +38,6 @@ Route::get('/home', [ArticleController::class, 'userarticle'])->name('user.artic
 
 
 
-// Route::get('/barber/{barberName}', [ListeController::class, 'barberReservations'])->name('barber.reservations');
-
-
-
 
 
 

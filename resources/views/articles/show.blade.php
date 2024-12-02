@@ -248,7 +248,7 @@
             <button type="submit">Publier le commentaire</button>
         </form>
 
-        <!-- Ajout du bouton "Retour à la liste" à droite -->
+       
         
     </div>
 
