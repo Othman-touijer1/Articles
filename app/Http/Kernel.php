@@ -70,6 +70,7 @@ class Kernel extends HttpKernel
         // autres middlewares...
         'checkPermission' => \App\Http\Middleware\CheckUserPermission::class,
         'check.article.owner' => \App\Http\Middleware\CheckArticleOwner::class,
+        'admin' => \App\Http\Middleware\IsAdmin::class,
 
     ];
 

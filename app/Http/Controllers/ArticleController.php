@@ -11,6 +11,10 @@ use Spatie\Permission\Models\Role; // IMPORTER LA CLASSE Role
 use Spatie\Permission\Models\Permission; // IMPORTER LA CLASSE Permission
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Carbon\Carbon;
+use App\Mail\ArticleCreated;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Cache;
 
 
 class ArticleController extends Controller 
@@ -36,14 +40,11 @@ class ArticleController extends Controller
     //     $this->middleware('can:delete-article')->only('destroy'); // User 1 and 3 can delete
     // }
 
-
-    public function acceuile()
-    {
+     public function admin(){
         $categories = Category::all();
         $articles = Article::with('user', 'categories')->latest()->get();
-        return view('home.Accueil', compact('articles', 'categories'));
-    }
-
+        return view('home.adminpage', compact('articles', 'categories'));
+     }
     public function home11()
     {
         $categories = Category::all();
@@ -76,6 +77,10 @@ class ArticleController extends Controller
         }
 
         $article->save();
+        // Queue l'envoi de l'email après 1 minute
+        // $delay = now()->addMinute(); // 1 minute après
+        $delay = now()->addMinute(1);
+        Mail::to('amin@gmail.com')->later($delay, new ArticleCreated($article));
         return redirect('/home');
     }
 
@@ -119,7 +124,7 @@ class ArticleController extends Controller
     public function destroy($id)
     {
         $article = Article::findOrFail($id);
-        $this->authorize('delete', $article);
+        // $this->authorize('delete', $article);
         
     //     // if (!auth()->user()->can('delete articles')) {
     //     //     abort(403, 'Vous n\'avez pas la permission de supprimer cet article');
@@ -143,5 +148,24 @@ class ArticleController extends Controller
         } else {
             return redirect()->route('login');
         }
+    }
+    public function confirm($id)
+    {
+        // Trouver l'article par son ID
+        $article = Article::findOrFail($id);
+        
+        // Mettre à jour l'article pour le marquer comme confirmé
+        $article->is_confirmed = true;
+        $article->save();
+        
+        // Rediriger vers une autre page avec un message de confirmation
+        return redirect('/acceuil')->with('success', 'Article confirmé avec succès !');
+    }
+    public function acceuile()
+    {
+        $categories = Category::all();
+        $articles = Article::with('user', 'categories')->latest()->get();
+        $articles = Article::where('is_confirmed', true)->get();
+        return view('home.Accueil', compact('articles', 'categories'));
     }
 }

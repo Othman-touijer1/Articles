@@ -14,15 +14,15 @@ class CheckUserPermission
         if ($user->id == 10) {  
             return $next($request);
         }
-        if ($action == 'add' && $user->id != 11) {
+        if ($action == 'add' && $user->id != 1) {
             abort(403, 'Vous n\'avez pas la permission d\'ajouter un article.');
         }
 
-        if ($action == 'edit' && $user->id != 12) {
+        if ($action == 'edit' && $user->id != 2) {
             abort(403, 'Vous n\'avez pas la permission de modifier cet article.');
         }
 
-        if ($action == 'delete' && $user->id != 13) {
+        if ($action == 'delete' && $user->id != 3) {
             abort(403, 'Vous n\'avez pas la permission de supprimer cet article.');
         }
 

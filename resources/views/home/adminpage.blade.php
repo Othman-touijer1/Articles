@@ -327,7 +327,7 @@
               </a>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link" href="/adminpage" aria-expanded="false">
+              <a class="sidebar-link" href="./ui-card.html" aria-expanded="false">
                 <iconify-icon icon="solar:bookmark-square-minimalistic-line-duotone"></iconify-icon>
                 <span class="hide-menu" style="color:white">Admin page</span>
               </a>
@@ -360,16 +360,13 @@
         </ul>
         <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
           <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
-            <!-- Barre de recherche -->
-
-
-
-            <form class="d-flex" method="GET" action="">
+          <form class="d-flex" method="GET" action="">
                 <input class="form-control me-2" type="search" placeholder="Rechercher" aria-label="Search" name="search" value="">
                 <button class="btn btn-outline-primary" type="submit">
                     <i class="ti ti-search"></i> <!-- Search icon -->
                 </button>
             </form>
+
             <!-- Profil dropdown -->
             <li class="nav-item dropdown">
               <a class="nav-link" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown" aria-expanded="false">
@@ -403,26 +400,57 @@
 
 
       <!-- Articles Section -->
-      <div class="articles-container" style="margin_top:100px">
-          @foreach($articles as $article)
-              <article class="article" style="margin-top:50px">
-                  <img src="{{ $article->image ? asset('storage/images/' . $article->image) : 'https://via.placeholder.com/800x400' }}" 
-                       alt="Image de l'article" class="article-image">
-                  <h1 class="title">{{ $article->title }}</h1>
-                  <div class="excerpt">
-                      <label for="content">{{ $article->excerpt }}</label>
-                  </div>
-                  @foreach($article->categories as $category)
-                      <h6>{{ $category->name }}</h6>
-                  @endforeach
-                  <div class="datetime" style="color:blue">
-                      <label for="datetime">{{ $article->published_at }}</label>
-                  </div>
-                  <label style="color:black">{{ $article->user->name }}</label>
-                  <a href="{{ route('articles.show', $article->id) }}" class="read-more">Lire la suite</a>
-              </article>
-          @endforeach
-      </div>
+      <!-- Articles Section -->
+<div class="articles-container" style="">
+    @foreach($articles as $article)
+        <article class="article" style="margin-top:50px">
+            <img src="{{ $article->image ? asset('storage/images/' . $article->image) : 'https://via.placeholder.com/800x400' }}" 
+                 alt="Image de l'article" class="article-image">
+            <h1 class="title">{{ $article->title }}</h1>
+            <div class="excerpt">
+                <label for="content">{{ $article->excerpt }}</label>
+            </div>
+            @foreach($article->categories as $category)
+                <h6>{{ $category->name }}</h6>
+            @endforeach
+            <div class="datetime" style="color:blue">
+                <label for="datetime">{{ $article->published_at }}</label>
+            </div>
+            <label style="color:black">{{ $article->user->name }}</label>
+
+            <!-- Action Buttons: Modifier, Supprimer, Confirmer -->
+            <div class="action-buttons" style="margin-top: 15px;">
+                <!-- Modifier Button -->
+                <a href="{{ route('articles.edit', $article->id) }}" class="btn btn-warning btn-sm">
+                    <iconify-icon icon="mdi:pencil-outline" style="color: white;"></iconify-icon> Modifier
+                </a>
+                
+                <!-- Supprimer Button -->
+                <form action="{{ route('articles.destroy', $article->id) }}" method="POST" style="display:inline;">
+                          @csrf
+                          @method('DELETE')
+                          <button type="submit" style="background: none; border: none;">
+                              <iconify-icon icon="material-symbols:delete-outline"></iconify-icon>
+                              Supprimer
+                          </button>
+                </form>
+
+                <!-- Confirmer Button -->
+                <!-- Confirmer Button -->
+                <form action="{{ route('article.confirm', $article->id) }}" method="POST">
+                    @csrf
+                    <button type="submit" class="btn btn-success btn-sm">
+                        <iconify-icon icon="mdi:check-circle-outline" style="color: white;"></iconify-icon> Confirmer
+                    </button>
+                </form>
+
+            </div>
+
+            <a href="{{ route('articles.show', $article->id) }}" class="read-more">Lire la suite</a>
+        </article>
+    @endforeach
+</div>
+
     </div>
   </div>
 

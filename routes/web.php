@@ -5,12 +5,14 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\AdminController;
 
 
 
 Route::get('/', function () {
     return view('welcome');
 });
+
 Route::get('/ajouter', [ArticleController::class, 'ajouterarticle'])->name('ajouter');
 Route::post('/home', [ArticleController::class, 'store'])->name('store');
 Route::get('/home',  [ArticleController::class, 'home11'])->name('home');
@@ -24,7 +26,7 @@ Route::get('/articles/{id}', [ArticleController::class, 'show'])->name('articles
 //comment
 Route::post('/articles/{article}/comments', [CommentController::class, 'store'])->name('comments.store');
 
-Route::get('acceuil', [ArticleController::class, 'acceuile']);
+Route::get('/acceuil', [ArticleController::class, 'acceuile'])->name('acceuille.page');
 
 
 Route::get('/affichercategories', [CategoryController::class, 'afficher'])->name('afficher');
@@ -35,11 +37,12 @@ Route::get('/categorie/{id}', [CategoryController::class, 'destroy'])->name('cat
 
 
 Route::get('/home', [ArticleController::class, 'userarticle'])->name('user.article');
+Route::post('/article/{id}/confirm', [ArticleController::class, 'confirm'])->name('article.confirm');
 
-
-
-
-
+Route::middleware(['admin'])->group(function () {
+    
+    Route::get('/adminpage',  [ArticleController::class, 'admin'])->name('adminpage');
+});
 
 
 
