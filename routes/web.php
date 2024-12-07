@@ -42,6 +42,11 @@ Route::post('/article/{id}/confirm', [ArticleController::class, 'confirm'])->nam
 Route::middleware(['admin'])->group(function () {
     
     Route::get('/adminpage',  [ArticleController::class, 'admin'])->name('adminpage');
+    Route::get('/affichercategories', [CategoryController::class, 'afficher'])->name('afficher');
+    Route::post('/affichercategories', [CategoryController::class, 'store'])->name('categorie.store');
+    Route::get('/categorie/{id}/edit', [CategoryController::class, 'edit'])->name('categorie.edit');
+    Route::put('/categorie/{id}', [CategoryController::class, 'update'])->name('categorie.update');
+    Route::get('/categorie/{id}', [CategoryController::class, 'destroy'])->name('categorie.destroy');
 });
 
 

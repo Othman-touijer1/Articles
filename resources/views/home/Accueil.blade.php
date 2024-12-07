@@ -419,6 +419,9 @@
                       <label for="datetime">{{ $article->published_at }}</label>
                   </div>
                   <label style="color:black">{{ $article->user->name }}</label>
+                  @if($article->isNew())
+                      <span class="new-star">⭐ Nouveau</span>
+                  @endif
                   <a href="{{ route('articles.show', $article->id) }}" class="read-more">Lire la suite</a>
               </article>
           @endforeach

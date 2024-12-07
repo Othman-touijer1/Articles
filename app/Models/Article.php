@@ -16,7 +16,11 @@ class Article extends Model
     {
         return $this->belongsTo(User::class);
     }
-     
+     // Retourne si l'article est "new" (moins de 24 heures)
+    public function isNew()
+    {
+        return $this->created_at->greaterThan(now()->subDay());
+    }
 
     
     // Relation many-to-many avec les catégories

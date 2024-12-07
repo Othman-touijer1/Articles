@@ -417,6 +417,9 @@
                 <label for="datetime">{{ $article->published_at }}</label>
             </div>
             <label style="color:black">{{ $article->user->name }}</label>
+              @if($article->isNew())
+                  <span class="new-star">⭐ Nouveau</span>
+              @endif
 
             <!-- Action Buttons: Modifier, Supprimer, Confirmer -->
             <div class="action-buttons" style="margin-top: 15px;">

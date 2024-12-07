@@ -421,6 +421,9 @@
                   <div style="color:blue"> 
                       <label for="datetime">{{ $article->published_at }}</label>
                   </div>
+                  @if($article->isNew())
+                      <span class="new-star">⭐ Nouveau</span>
+                  @endif
 
                   <!-- Lien vers l'article complet (peut être une page de détails) -->
                   <a href="{{ route('articles.show', $article->id) }}" class="read-more">Lire la suite</a>

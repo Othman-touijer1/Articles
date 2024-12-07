@@ -15,6 +15,7 @@ use Carbon\Carbon;
 use App\Mail\ArticleCreated;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Cache;
+use App\Jobs\SendArticleCreatedEmail;
 
 
 class ArticleController extends Controller 
@@ -60,16 +61,13 @@ class ArticleController extends Controller
     }
     public function store(StoreArticleRequest $request)
     {
-        
-        // $this->authorize('create', Article::class); // This will use the ArticlePolicy
-        // if (!auth()->user()->can('create articles')) {
-    //     //     abort(403, 'Vous n\'avez pas la permission de créer un article');
-    //     // }
-
         $article = new Article();
         $article->fill($request->only(['title', 'excerpt', 'content']));
         $article->user()->associate(auth()->user());
         $article->published_at = $request->datetime;
+
+        // Définir is_new à true, par défaut
+        $article->is_new = true;
 
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
             $imagePath = $request->file('image')->store('public/images');
@@ -77,12 +75,14 @@ class ArticleController extends Controller
         }
 
         $article->save();
+
         // Queue l'envoi de l'email après 1 minute
-        // $delay = now()->addMinute(); // 1 minute après
-        $delay = now()->addMinute(1);
-        Mail::to('amin@gmail.com')->later($delay, new ArticleCreated($article));
+        $delay = now()->addMinute(1); // Définir le délai d'une minute
+        SendArticleCreatedEmail::dispatch($article)->delay($delay);
+
         return redirect('/home');
     }
+
 
 
     public function edit($id)

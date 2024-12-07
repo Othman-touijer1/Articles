@@ -12,3 +12,4 @@
     <p><strong>Contenu :</strong> {{ $article->content }}</p>
 </body>
 </html>
+
