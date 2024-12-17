@@ -6,6 +6,7 @@ use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\EmailSettingController;
 
 
 
@@ -47,8 +48,18 @@ Route::middleware(['admin'])->group(function () {
     Route::get('/categorie/{id}/edit', [CategoryController::class, 'edit'])->name('categorie.edit');
     Route::put('/categorie/{id}', [CategoryController::class, 'update'])->name('categorie.update');
     Route::get('/categorie/{id}', [CategoryController::class, 'destroy'])->name('categorie.destroy');
+    
+    // Route::get('/settings',[SettingController::class, 'index']);
+    // Afficher les paramètres
+    // Route::get('/settings/email', [EmailSettingController::class, 'edit']);
+
+    // Sauvegarder les paramètres
+    // Route::post('/settings/email', [EmailSettingController::class, 'update']);
+
 });
 
+Route::get('/settings/email', [EmailSettingController::class, 'index'])->name('email.settings.index');
+Route::post('/settings/email', [EmailSettingController::class, 'store']);
 
 
 

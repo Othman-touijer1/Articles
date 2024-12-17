@@ -7,8 +7,8 @@ use App\Models\Category;
 use App\Models\Article;
 use App\Http\Requests\StoreArticleRequest;
 use App\Http\Requests\UpdateArticleRequest;
-use Spatie\Permission\Models\Role; // IMPORTER LA CLASSE Role
-use Spatie\Permission\Models\Permission; // IMPORTER LA CLASSE Permission
+use Spatie\Permission\Models\Role; 
+use Spatie\Permission\Models\Permission; 
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Carbon\Carbon;
@@ -16,6 +16,7 @@ use App\Mail\ArticleCreated;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Cache;
 use App\Jobs\SendArticleCreatedEmail;
+use App\Models\EmailSetting;
 
 
 class ArticleController extends Controller 
@@ -60,29 +61,33 @@ class ArticleController extends Controller
         return view('articles.ajouter', compact('categories'));
     }
     public function store(StoreArticleRequest $request)
-    {
-        $article = new Article();
-        $article->fill($request->only(['title', 'excerpt', 'content']));
-        $article->user()->associate(auth()->user());
-        $article->published_at = $request->datetime;
+{
+    
+    $article = new Article();
+    $article->fill($request->only(['title', 'excerpt', 'content']));
+    $article->user()->associate(auth()->user());
+    $article->published_at = $request->datetime;
 
-        // Définir is_new à true, par défaut
-        $article->is_new = true;
-
-        if ($request->hasFile('image') && $request->file('image')->isValid()) {
-            $imagePath = $request->file('image')->store('public/images');
-            $article->image = basename($imagePath);
-        }
-
-        $article->save();
-
-        // Queue l'envoi de l'email après 1 minute
-        $delay = now()->addMinute(1); // Définir le délai d'une minute
-        SendArticleCreatedEmail::dispatch($article)->delay($delay);
-
-        return redirect('/home');
+    if ($request->hasFile('image') && $request->file('image')->isValid()) {
+        $imagePath = $request->file('image')->store('public/images');
+        $article->image = basename($imagePath);
     }
 
+    $article->is_new = true;
+    $article->save();
+
+    $settings = EmailSetting::first();
+    $emailDelay = $settings ? $settings->email_delay : 1;  
+
+   
+    $delayMinutes = $request->input('email_delay', $emailDelay); 
+
+    $delay = now()->addMinutes($delayMinutes);
+    SendArticleCreatedEmail::dispatch($article)->delay($delay);
+
+   
+    return redirect('/home');
+}
 
 
     public function edit($id)
@@ -100,7 +105,7 @@ class ArticleController extends Controller
     public function update(UpdateArticleRequest $request, $id)
     {
         $article = Article::findOrFail($id);
-        $this->authorize('update', $article); 
+        // $this->authorize('update', $article); 
         // if (!auth()->user()->can('edit articles')) {
         //     abort(403, 'Vous n\'avez pas la permission de modifier cet article');
         // }

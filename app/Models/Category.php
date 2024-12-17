@@ -22,4 +22,5 @@ class Category extends Model
     {
         return $this->hasMany(Article::class); // A category has many articles
     }
+    
 }

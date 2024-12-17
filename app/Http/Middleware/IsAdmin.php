@@ -16,9 +16,11 @@ class IsAdmin
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(Auth::check() && Auth::user()->id == 1){
+        if (Auth::check() && (Auth::user()->id == 1 || Auth::user()->id == 2 || Auth::user()->id == 3)) {
             return $next($request);
         }
-       abort(403, 'Vous n\'avez pas l\'authorisation d\'entrer a cette page'); 
+        
+        abort(403, 'Vous n\'avez pas l\'autorisation d\'entrer à cette page');
     }
+
 }

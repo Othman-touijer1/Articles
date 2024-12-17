@@ -8,29 +8,172 @@
   <link rel="shortcut icon" type="image/png" href="../assets/images/logos/favicon.png" />
   <link rel="stylesheet" href="../assets/css/styles.min.css" />
   <style>
-    /* Personnalisation globale */
+    /* Global Styles */
     body {
-      font-family: 'Arial', sans-serif;
+      font-family: 'Helvetica Neue', sans-serif;
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      background-color: #f4f6f9;
+      background-color: #f7f7f7;
+      color: #444;
     }
 
-    /* Personnalisation du bouton "Partager votre article" */
+    /* Sidebar */
+    .left-sidebar {
+      background-color: #333;
+      width: 270px;
+      position: fixed;
+      height: 100%;
+      padding-top: 20px;
+      box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .brand-logo img {
+      max-width: 120px;
+      margin: 0 auto;
+      display: block;
+    }
+
+    .sidebar-nav {
+      padding-left: 0;
+    }
+
+    .sidebar-nav .sidebar-item {
+      list-style: none;
+      transition: background-color 0.3s ease;
+    }
+
+    .sidebar-nav .sidebar-item a {
+      color: #fff;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      font-size: 18px;
+      padding: 12px 20px;
+      width: 100%;
+      transition: color 0.3s ease;
+    }
+
+    .sidebar-nav .sidebar-item a:hover {
+      background-color: #4e5b66;
+      color: #c1c1c1;
+    }
+
+    .sidebar-nav .sidebar-item.active a {
+      background-color: #007bff;
+      color: white;
+    }
+
+    /* Main Content Area */
+    .body-wrapper {
+      margin-left: 270px;
+      padding: 30px;
+      background-color: #fff;
+      min-height: 100vh;
+    }
+
+    /* Navbar */
+    .app-header {
+      background-color: #fff;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .navbar-nav .nav-link {
+      color: #444;
+      font-size: 16px;
+      font-weight: 600;
+      padding: 12px 18px;
+      transition: color 0.3s ease;
+    }
+
+    .navbar-nav .nav-link:hover {
+      color: #007bff;
+    }
+
+    /* Articles Section */
+    .articles-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+
+    .article {
+      background-color: #fff;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .article:hover {
+      transform: translateY(-8px);
+    }
+
+    .article-image {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    .article .title {
+      font-size: 24px;
+      font-weight: 700;
+      margin: 20px 0;
+      color: #333;
+    }
+
+    .article .excerpt {
+      font-size: 18px;
+      color: #555;
+      margin-bottom: 20px;
+    }
+
+    .article .read-more {
+      text-decoration: none;
+      color: #007bff;
+      font-weight: bold;
+      border: 1px solid #007bff;
+      padding: 10px 20px;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+    }
+
+    .article .read-more:hover {
+      background-color: #007bff;
+      color: #fff;
+    }
+
+    .article .author {
+      font-size: 16px;
+      color: #777;
+    }
+
+    .article .datetime {
+      font-size: 14px;
+      color: #aaa;
+    }
+
+    /* Button Styles */
     .custom-button {
-      padding: 12px 25px;
+      padding: 14px 30px;
       background-color: #007bff;
       color: white;
       border: 2px solid #007bff;
-      border-radius: 8px;
-      font-size: 16px;
-      font-weight: bold;
+      border-radius: 50px;
+      font-size: 18px;
+      font-weight: 600;
       text-align: center;
-      transition: all 0.3s ease;
-      margin-top: 30px;
-      width: 100%;
       display: block;
+      width: 100%;
+      margin-top: 30px;
+      transition: all 0.3s ease;
     }
 
     .custom-button:hover {
@@ -43,222 +186,7 @@
       box-shadow: 0 0 10px rgba(0, 123, 255, 0.7);
     }
 
-    /* Sidebar - Couleurs et effet */
-    .left-sidebar {
-      background-color: #2a3d47;
-      width: 250px;
-      position: fixed;
-      height: 100%;
-      padding-top: 20px;
-      transition: all 0.3s ease;
-      box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
-    }
-
-    .brand-logo {
-      padding: 10px;
-      text-align: center;
-    }
-
-    .brand-logo img {
-      max-width: 150px;
-    }
-
-    .sidebar-nav {
-      padding-left: 0;
-    }
-
-    .sidebar-nav .sidebar-item {
-      padding: 12px;
-      list-style: none;
-      transition: background-color 0.3s ease;
-    }
-
-    .sidebar-nav .sidebar-item a {
-      color: #c1c1c1;
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      font-size: 16px;
-      padding: 8px 15px;
-      width: 100%;
-      transition: color 0.3s ease;
-    }
-
-   
-
-    .sidebar-nav .sidebar-item a:hover {
-      color: #ffffff;
-    }
-
-    /* Séparateurs dans la sidebar */
-    .sidebar-divider {
-      border-bottom: 1px solid #444;
-      margin: 15px 0;
-    }
-
-    /* Profil Dropdown */
-    .dropdown-menu {
-      background-color: #2a3d47;
-      border-radius: 8px;
-      border: none;
-      padding: 10px;
-    }
-
-    .dropdown-menu .dropdown-item {
-      color: #c1c1c1;
-      font-size: 16px;
-      padding: 10px;
-      border-radius: 6px;
-      transition: background-color 0.3s ease;
-    }
-
-    .dropdown-menu .dropdown-item:hover {
-      background-color: #1f2a33;
-      color: white;
-    }
-
-    /* Navbar et éléments */
-    .navbar-nav .nav-item .nav-link {
-      color: #333;
-      font-size: 16px;
-      font-weight: 600;
-      padding: 10px 15px;
-      transition: color 0.3s ease;
-    }
-
-    .navbar-nav .nav-item .nav-link:hover {
-      color: #007bff;
-    }
-
-    /* Espacement navbar */
-    .navbar-nav .nav-item {
-      margin-left: 15px;
-    }
-
-    /* Corps principal avec la sidebar */
-    .body-wrapper {
-      margin-left: 250px; /* Espace pour la sidebar */
-      padding: 20px;
-    }
-
-    /* Header */
-    .app-header {
-      background-color: transparent !important;  /* Annule le fond par défaut */
-      box-shadow: none !important;  /* Supprime l'ombre */
-    }
-
-    .navbar {
-      background-color: transparent !important;  /* Annule le fond de la navbar elle-même */
-    }
-
-    /* Avatar du profil */
-    .navbar-nav .nav-item img {
-      border-radius: 50%;
-    }
-
-    /* Section Articles */
-    .articles-container {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
-      margin-top: 30px;
-    }
-
-    .article {
-      background-color: #fff;
-      border-radius: 10px;
-      overflow: hidden;
-      width: calc(33% - 20px);
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      transition: transform 0.3s ease;
-      padding: 15px;
-    }
-
-    .article:hover {
-      transform: translateY(-5px);
-    }
-
-    .article-image {
-      width: 100%;
-      height: 200px;
-      object-fit: cover;
-      border-radius: 8px;
-    }
-
-    .article .title {
-      font-size: 22px;
-      font-weight: bold;
-      margin: 15px 0;
-      color: #333;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    /* Ajout des boutons modifier/supprimer */
-    .article .title .action-buttons {
-      display: flex;
-      gap: 10px;
-    }
-
-    .article .title .action-buttons button {
-      background: transparent;
-      border: none;
-      cursor: pointer;
-      font-size: 18px;
-      color: #007bff;
-      transition: color 0.3s ease;
-    }
-
-    .article .title .action-buttons button:hover {
-      color: #0056b3;
-    }
-
-    .article .author {
-      font-size: 14px;
-      color: #777;
-    }
-
-    .article .excerpt {
-      font-size: 16px;
-      color: #555;
-      margin: 10px 0;
-    }
-
-    .article .read-more {
-      text-decoration: none;
-      color: #007bff;
-      font-weight: bold;
-      margin: 10px 0 15px;
-      display: inline-block;
-      padding: 6px 15px;
-      border: 1px solid #007bff;
-      border-radius: 5px;
-      transition: all 0.3s ease;
-    }
-
-    .article .read-more:hover {
-      background-color: #007bff;
-      color: white;
-    }
-
-    /* Boutons dans les articles */
-    .article .action-buttons a,
-    .article .action-buttons button {
-      background-color: transparent;
-      border: none;
-      color: #007bff;
-      cursor: pointer;
-      font-size: 18px;
-      transition: color 0.3s ease;
-    }
-
-    .article .action-buttons a:hover,
-    .article .action-buttons button:hover {
-      color: #0056b3;
-    }
-
-    /* Adaptabilité mobile */
+    /* Responsive Design */
     @media (max-width: 768px) {
       .left-sidebar {
         width: 80px;
@@ -273,12 +201,22 @@
       }
 
       .articles-container {
-        flex-direction: column;
-        gap: 15px;
+        grid-template-columns: 1fr;
       }
 
       .article {
         width: 100%;
+      }
+
+      /* Navbar and Dropdown Adjustments */
+      .navbar-collapse {
+        background-color: #f8f9fa;
+        padding: 15px;
+        border-radius: 8px;
+      }
+
+      .navbar-nav .nav-item form {
+        margin-right: 20px;
       }
     }
   </style>

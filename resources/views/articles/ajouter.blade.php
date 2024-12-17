@@ -250,6 +250,8 @@
                 <label for="datetime">Date et Heure de publication</label>
                 <input type="datetime-local" id="datetime" name="datetime" required>
             </div>
+            <!-- <label for="email_delay">Délai avant envoi de l'email (en minutes)</label>
+            <input type="number" name="email_delay" id="email_delay" min="1" value="1" required> -->
 
             <div style="display: flex; justify-content: space-between;">
                 <a href="/home">

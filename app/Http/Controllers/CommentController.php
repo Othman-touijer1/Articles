@@ -22,5 +22,5 @@ class CommentController extends Controller
         ]);
 
         return redirect()->route('articles.show', $articleId)->with('success', 'Commentaire ajouté avec succès!');
-    }
+    } 
 }

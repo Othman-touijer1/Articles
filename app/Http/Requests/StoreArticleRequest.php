@@ -28,6 +28,7 @@ class StoreArticleRequest extends FormRequest
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif',
             'categories' => 'array',
             'datetime' => 'required|date',
+            'delay' => 'nullable|integer|min:1', // Le délai doit être un nombre entier et supérieur ou égal à 1
         ];
     }
 }

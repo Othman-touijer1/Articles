@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>MaterailM Free Bootstrap Admin Template by WrapPixel</title>
+  <title>MaterialM Free Bootstrap Admin Template by WrapPixel</title>
   <link rel="shortcut icon" type="image/png" href="../assets/images/logos/favicon.png" />
   <link rel="stylesheet" href="../assets/css/styles.min.css" />
   <style>
@@ -27,6 +27,7 @@
       padding-top: 20px;
       box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
       transition: all 0.3s ease;
+      color: #fff;
     }
 
     .brand-logo img {
@@ -71,6 +72,7 @@
       padding: 30px;
       background-color: #fff;
       min-height: 100vh;
+      transition: margin-left 0.3s ease;
     }
 
     /* Navbar */
@@ -113,6 +115,7 @@
 
     .article:hover {
       transform: translateY(-8px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
     }
 
     .article-image {
@@ -127,6 +130,7 @@
       font-weight: 700;
       margin: 20px 0;
       color: #333;
+      transition: color 0.3s ease;
     }
 
     .article .excerpt {
@@ -223,26 +227,25 @@
 </head>
 
 <body>
-  <!--  Body Wrapper -->
   <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
     data-sidebar-position="fixed" data-header-position="fixed">
-    <!-- Sidebar Start -->
+    
+    <!-- Sidebar -->
     <aside class="left-sidebar">
       <div>
         <div class="brand-logo d-flex align-items-center justify-content-center">
           <a href="./index.html" class="text-nowrap logo-img">
-            <img src="../assets/images/logos/logo.svg" alt="Logo"/>
+            <img src="../assets/images/logos/logo.svg" alt="Logo" />
           </a>
           <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
             <i class="ti ti-x fs-8"></i>
           </div>
         </div>
 
-        <!-- Sidebar navigation-->
+        <!-- Sidebar navigation -->
         <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
           <ul id="sidebarnav">
             <li class="nav-small-cap">
-              <iconify-icon icon="solar:menu-dots-linear" class="nav-small-cap-icon fs-4"></iconify-icon>
               <span class="hide-menu" style="color:white">Home</span>
             </li>
             <li class="sidebar-item">
@@ -253,7 +256,7 @@
             </li>
             <li><span class="sidebar-divider lg"></span></li>
             <li class="sidebar-item">
-              <a class="sidebar-link" href="{{route('user.article')}}" aria-expanded="false">
+              <a class="sidebar-link" href="{{ route('user.article') }}" aria-expanded="false">
                 <iconify-icon icon="solar:layers-minimalistic-bold-duotone"></iconify-icon>
                 <span class="hide-menu" style="color:white">Vos articles</span>
               </a>
@@ -271,11 +274,13 @@
               </a>
             </li>
             <li class="sidebar-item">
-              <a class="sidebar-link" href="./ui-card.html" aria-expanded="false">
+              <a class="sidebar-link" href="/adminpage" aria-expanded="false">
                 <iconify-icon icon="solar:bookmark-square-minimalistic-line-duotone"></iconify-icon>
                 <span class="hide-menu" style="color:white">Admin page</span>
               </a>
             </li>
+            
+
             <li style="color:blue">
               <a href="{{ route('ajouter') }}" class="text-sm font-medium text-gray-500 hover:text-gray-700 custom-button-wrapper">
                 <button class="inline-flex items-center px-4 py-2 border border-transparent rounded-md bg-blue-500 text-white hover:bg-blue-700 focus:outline-none focus:bg-blue-700 transition duration-150 ease-in-out custom-button">
@@ -292,113 +297,86 @@
 
     <!-- Main Content -->
     <div class="body-wrapper">
-          <!-- Header Start -->
-    <header class="app-header">
-      <nav class="navbar navbar-expand-lg navbar-light">
-        <ul class="navbar-nav">
-          <li class="nav-item d-block d-xl-none">
-            <a class="nav-link sidebartoggler" id="headerCollapse" href="javascript:void(0)">
-              <i class="ti ti-menu-2"></i>
-            </a>
-          </li>
-        </ul>
-        <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
-          <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
-          <form class="d-flex" method="GET" action="">
-                <input class="form-control me-2" type="search" placeholder="Rechercher" aria-label="Search" name="search" value="">
-                <button class="btn btn-outline-primary" type="submit">
-                    <i class="ti ti-search"></i> <!-- Search icon -->
-                </button>
-            </form>
-
-            <!-- Profil dropdown -->
-            <li class="nav-item dropdown">
-              <a class="nav-link" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown" aria-expanded="false">
-                <img src="../assets/images/profile/user-1.jpg" alt="" width="35" height="35" class="rounded-circle">
+      <!-- Header Start -->
+      <header class="app-header">
+        <nav class="navbar navbar-expand-lg navbar-light">
+          <ul class="navbar-nav">
+            <li class="nav-item d-block d-xl-none">
+              <a class="nav-link sidebartoggler" id="headerCollapse" href="javascript:void(0)">
+                <i class="ti ti-menu-2"></i>
               </a>
-              <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
-                <div class="message-body">
-                  <form method="GET" action="{{ route('profile.edit') }}">
-                    <center><div style="color:lightblue">{{ Auth::user()->name }}</div></center>
-                    @csrf
-                    <button type="submit" class="d-flex align-items-center gap-2 dropdown-item btn btn-link text-decoration-none text-left">
-                      <i class="ti ti-user fs-6"></i>
-                      <p class="mb-0 fs-3">{{ __('Profile') }}</p>
-                    </button>
-                  </form>
-                  <form method="POST" action="{{ route('logout') }}">
-                    @csrf
-                    <button type="submit" class="d-flex align-items-center gap-2 dropdown-item btn btn-link text-decoration-none text-left" onclick="event.preventDefault(); this.closest('form').submit();">
-                      <i class="ti ti-mail fs-6"></i>
-                      <p class="mb-0 fs-3">{{ __('Log Out') }}</p>
-                    </button>
-                  </form>
-                </div>
-              </div>
             </li>
           </ul>
-        </div>
-      </nav>
-    </header>
-    <!-- Header End -->
+          <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
+            <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
+              <!-- Barre de recherche -->
+              <form class="d-flex" method="GET" action="" >
+                  <input class="form-control me-2" type="search" placeholder="Rechercher" aria-label="Search" name="search" value="" style="margin-right:70px">
+                  <button class="btn btn-outline-primary" type="submit">
+                      <i class="ti ti-search"></i> <!-- Icône de recherche -->
+                  </button>
+              </form>
 
+              <!-- Icône de paramètres à côté de la barre de recherche -->
+              <li class="nav-item">
+                  <a class="nav-link" href="javascript:void(0)" id="settings-icon" aria-expanded="false">
+                      <iconify-icon icon="solar:settings-line-duotone" style="font-size: 1.5rem; color: #007bff;"></iconify-icon> <!-- Icône de paramètres -->
+                  </a>
+              </li>
 
-      <!-- Articles Section -->
-      <!-- Articles Section -->
-<div class="articles-container" style="">
-    @foreach($articles as $article)
-        <article class="article" style="margin-top:50px">
-            <img src="{{ $article->image ? asset('storage/images/' . $article->image) : 'https://via.placeholder.com/800x400' }}" 
-                 alt="Image de l'article" class="article-image">
-            <h1 class="title">{{ $article->title }}</h1>
-            <div class="excerpt">
-                <label for="content">{{ $article->excerpt }}</label>
-            </div>
-            @foreach($article->categories as $category)
-                <h6>{{ $category->name }}</h6>
-            @endforeach
-            <div class="datetime" style="color:blue">
-                <label for="datetime">{{ $article->published_at }}</label>
-            </div>
-            <label style="color:black">{{ $article->user->name }}</label>
-              @if($article->isNew())
-                  <span class="new-star">⭐ Nouveau</span>
-              @endif
-
-            <!-- Action Buttons: Modifier, Supprimer, Confirmer -->
-            <div class="action-buttons" style="margin-top: 15px;">
-                <!-- Modifier Button -->
-                <a href="{{ route('articles.edit', $article->id) }}" class="btn btn-warning btn-sm">
-                    <iconify-icon icon="mdi:pencil-outline" style="color: white;"></iconify-icon> Modifier
+              <!-- Profil dropdown -->
+              <li class="nav-item dropdown">
+                <a class="nav-link" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown" aria-expanded="false">
+                  <img src="../assets/images/profile/user-1.jpg" alt="" width="35" height="35" class="rounded-circle">
                 </a>
-                
-                <!-- Supprimer Button -->
-                <form action="{{ route('articles.destroy', $article->id) }}" method="POST" style="display:inline;">
-                          @csrf
-                          @method('DELETE')
-                          <button type="submit" style="background: none; border: none;">
-                              <iconify-icon icon="material-symbols:delete-outline"></iconify-icon>
-                              Supprimer
-                          </button>
-                </form>
+                <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
+                  <div class="message-body">
+                    <form method="GET" action="{{ route('profile.edit') }}">
+                      <center><div style="color:lightblue">{{ Auth::user()->name }}</div></center>
+                      @csrf
+                      <button type="submit" class="d-flex align-items-center gap-2 dropdown-item btn btn-link text-decoration-none text-left">
+                        <i class="ti ti-user fs-6"></i>
+                        <p class="mb-0 fs-3">{{ __('Profile') }}</p>
+                      </button>
+                    </form>
+                    <form method="POST" action="{{ route('logout') }}">
+                      @csrf
+                      <button type="submit" class="d-flex align-items-center gap-2 dropdown-item btn btn-link text-decoration-none text-left" onclick="event.preventDefault(); this.closest('form').submit();">
+                        <i class="ti ti-mail fs-6"></i>
+                        <p class="mb-0 fs-3">{{ __('Log Out') }}</p>
+                      </button>
+                    </form>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </header>
+      <!-- Header End -->
 
-                <!-- Confirmer Button -->
-                <!-- Confirmer Button -->
-                <form action="{{ route('article.confirm', $article->id) }}" method="POST">
-                    @csrf
-                    <button type="submit" class="btn btn-success btn-sm">
-                        <iconify-icon icon="mdi:check-circle-outline" style="color: white;"></iconify-icon> Confirmer
-                    </button>
-                </form>
+      <!-- Articles Section -->
+      <!-- Formulaire d'email -->
+       
+      <div class="email-form-container">
+            <h3>Paramètres d'Email</h3>
+            <form method="POST" action="/settings/email">
+                @csrf
+                <div class="form-group">
+                    <label for="email_delay">Délai avant envoi de l'email (en minutes)</label>
+                    <input type="number" name="email_delay" id="email_delay" min="1" value="{{ old('email_delay', $settings->email_delay ?? 1) }}" required>
+                </div>
+                <div class="form-group">
+                    <label for="email_content">Contenu de l'Email</label>
+                    <textarea class="form-control" id="email_content" name="email_content" rows="5" placeholder="Entrez le contenu de l'email">{{ old('email_content', $settings->email_content ?? '') }}</textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Enregistrer</button>
+            </form>
 
-            </div>
+            
 
-            <a href="{{ route('articles.show', $article->id) }}" class="read-more">Lire la suite</a>
-        </article>
-    @endforeach
-</div>
 
-    </div>
+  </div>
   </div>
 
   <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
@@ -409,5 +387,61 @@
   <script src="../assets/libs/simplebar/dist/simplebar.js"></script>
   <script src="../assets/js/dashboard.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
-</body>  
+</body>
 </html>
+<style>
+    /* Formulaire Email */
+.email-form-container {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin-top: 40px;
+}
+
+.email-form-container h3 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.email-form-container .form-group {
+  margin-bottom: 20px;
+}
+
+.email-form-container label {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+}
+
+.email-form-container .form-control {
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  width: 100%;
+}
+
+.email-form-container .form-control:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.email-form-container button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.email-form-container button:hover {
+  background-color: #0056b3;
+}
+
+</style>
