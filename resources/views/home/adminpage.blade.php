@@ -364,6 +364,12 @@
               @if($article->isNew())
                   <span class="new-star">⭐ Nouveau</span>
               @endif
+              @if($article->youtube_url)
+                  <div class="youtube-video">
+                      <iframe width="560" height="315" src="https://www.youtube.com/embed/{{ parse_url($article->youtube_url, PHP_URL_QUERY) }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                  </div>
+              @endif
+
 
             <!-- Action Buttons: Modifier, Supprimer, Confirmer -->
             <div class="action-buttons" style="margin-top: 15px;">
@@ -392,7 +398,7 @@
                 </form>
 
             </div>
-
+            
             <a href="{{ route('articles.show', $article->id) }}" class="read-more">Lire la suite</a>
         </article>
     @endforeach

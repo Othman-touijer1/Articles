@@ -14,20 +14,27 @@ class SendArticleCreatedEmail implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    protected $article;
+    protected $articleData;
 
     // Le constructeur pour recevoir l'article
-    public function __construct(Article $article)
+    public function __construct($articleData)
     {
-        $this->article = $article;
+        $this->articleData = $articleData;
     }
 
-    // La méthode handle où l'email est envoyé
+    
     public function handle()
     {
-        try {
-            // Envoi de l'email
-            Mail::to('amin1@exemple.com')->send(new ArticleCreated($this->article));
+    
+            // Liste des emails des administrateurs
+            $admins = ['amin1@example.com', 'othman2@example.com', 'abdelghafour3@example.com'];
+
+            // Envoi de l'email à chaque administrateur individuellement
+            try {
+            foreach ($admins as $admin) {
+                \Log::info("Sending email to: $admin");  // Log pour chaque email envoyé
+                Mail::to($admin)->send(new ArticleCreated($this->article));
+            }
         } catch (\Exception $e) {
             // Log de l'erreur en cas de problème
             \Log::error("Failed to send article created email: " . $e->getMessage());
@@ -35,18 +42,3 @@ class SendArticleCreatedEmail implements ShouldQueue
     }
 }
 ?>
-<!-- 
-    public function handle()
-    {
-        try {
-            // Liste des emails des administrateurs
-            $admins = ['admin1@example.com', 'admin2@example.com', 'admin3@example.com'];
-
-            // Envoi de l'email à tous les administrateurs
-            Mail::to($admins)->send(new ArticleCreated($this->article));
-        } catch (\Exception $e) {
-            // Log de l'erreur en cas de problème
-            \Log::error("Failed to send article created email: " . $e->getMessage());
-        }
-    }
- -->

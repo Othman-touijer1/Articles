@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Cache;
 use App\Jobs\SendArticleCreatedEmail;
 use App\Models\EmailSetting;
+use App\Jobs\StoreArticleJob;
 
 
 class ArticleController extends Controller 
@@ -60,32 +61,44 @@ class ArticleController extends Controller
         $categories = Category::all();
         return view('articles.ajouter', compact('categories'));
     }
-    public function store(StoreArticleRequest $request)
+    public function store(Request $request)
 {
-    
-    $article = new Article();
-    $article->fill($request->only(['title', 'excerpt', 'content']));
-    $article->user()->associate(auth()->user());
-    $article->published_at = $request->datetime;
+    // Récupérer les données de l'article à partir du formulaire
+    $articleData = $request->only(['title', 'excerpt', 'content']);
+    $articleData['user_id'] = auth()->user()->id;
+    $articleData['published_at'] = $request->datetime;
+    $articleData['is_new'] = true;
 
-    if ($request->hasFile('image') && $request->file('image')->isValid()) {
-        $imagePath = $request->file('image')->store('public/images');
-        $article->image = basename($imagePath);
+    // Utiliser le titre de l'article comme mot-clé pour rechercher une vidéo YouTube
+    $youtubeController = new YoutubeController();
+    $youtubeUrl = $youtubeController->searchYoutubeVideo($request->input('title')); // Recherche YouTube basée sur le titre de l'article
+
+    // Ajouter l'URL YouTube si elle est trouvée
+    if ($youtubeUrl) {
+        $articleData['youtube_url'] = $youtubeUrl;
+    } else {
+        $articleData['youtube_url'] = null;  // Si aucune vidéo n'est trouvée, mettre la colonne youtube_url à null
     }
 
-    $article->is_new = true;
-    $article->save();
+    // Si l'image existe, on la traite
+    if ($request->hasFile('image') && $request->file('image')->isValid()) {
+        $imagePath = $request->file('image')->store('public/images');
+        $articleData['image'] = basename($imagePath);
+    }
 
+    // Ajouter le job pour enregistrer l'article avec un délai de 2 minutes
+    $delay = now()->addMinutes(2);
+    StoreArticleJob::dispatch($articleData, $youtubeUrl)->delay($delay);
+
+    // Récupérer les paramètres pour l'envoi de l'email après un certain délai
     $settings = EmailSetting::first();
-    $emailDelay = $settings ? $settings->email_delay : 1;  
+    $emailDelay = $settings ? $settings->email_delay : 1;
+    $emailDelayTime = now()->addMinutes($emailDelay);
 
-   
-    $delayMinutes = $request->input('email_delay', $emailDelay); 
+    // Envoyer l'email après le délai
+    SendArticleCreatedEmail::dispatch($articleData)->delay($emailDelayTime);
 
-    $delay = now()->addMinutes($delayMinutes);
-    SendArticleCreatedEmail::dispatch($article)->delay($delay);
-
-   
+    // Redirection après le traitement
     return redirect('/home');
 }
 
