@@ -18,6 +18,8 @@ use Illuminate\Support\Facades\Cache;
 use App\Jobs\SendArticleCreatedEmail;
 use App\Models\EmailSetting;
 use App\Jobs\StoreArticleJob;
+use App\Jobs\UpdateArticleYoutubeUrlJob;
+use App\Http\Controllers\YoutubeController;
 
 
 class ArticleController extends Controller 
@@ -69,26 +71,21 @@ class ArticleController extends Controller
     $articleData['published_at'] = $request->datetime;
     $articleData['is_new'] = true;
 
-    // Utiliser le titre de l'article comme mot-clé pour rechercher une vidéo YouTube
-    $youtubeController = new YoutubeController();
-    $youtubeUrl = $youtubeController->searchYoutubeVideo($request->input('title')); // Recherche YouTube basée sur le titre de l'article
-
-    // Ajouter l'URL YouTube si elle est trouvée
-    if ($youtubeUrl) {
-        $articleData['youtube_url'] = $youtubeUrl;
-    } else {
-        $articleData['youtube_url'] = null;  // Si aucune vidéo n'est trouvée, mettre la colonne youtube_url à null
-    }
-
     // Si l'image existe, on la traite
     if ($request->hasFile('image') && $request->file('image')->isValid()) {
         $imagePath = $request->file('image')->store('public/images');
         $articleData['image'] = basename($imagePath);
     }
 
-    // Ajouter le job pour enregistrer l'article avec un délai de 2 minutes
     $delay = now()->addMinutes(2);
-    StoreArticleJob::dispatch($articleData, $youtubeUrl)->delay($delay);
+    StoreArticleJob::dispatch($articleData)->delay($delay);
+
+    // Ajouter un job pour récupérer l'URL YouTube après 3 minutes
+    $youtubeController = new YoutubeController();
+    $youtubeDelay = now()->addMinutes(3); // Délai total de 3 minutes
+    // Utilisez l'ID de l'article généré par la base de données
+    UpdateArticleYoutubeUrlJob::dispatch($youtubeController)->delay($youtubeDelay);
+   
 
     // Récupérer les paramètres pour l'envoi de l'email après un certain délai
     $settings = EmailSetting::first();
@@ -101,6 +98,11 @@ class ArticleController extends Controller
     // Redirection après le traitement
     return redirect('/home');
 }
+
+    
+    
+
+    
 
 
     public function edit($id)
@@ -186,4 +188,31 @@ class ArticleController extends Controller
         $articles = Article::where('is_confirmed', true)->get();
         return view('home.Accueil', compact('articles', 'categories'));
     }
+    public function favorites()
+    {
+        $categories = Category::all();
+        $articles = Article::with('user', 'categories')->latest()->get();
+        // Récupère les articles favoris de l'utilisateur connecté
+        $favoriteArticles = Article::where('is_like', true)->where('user_id', auth()->id())->get();
+        return view('home.favorites', compact('favoriteArticles', 'categories'));
+    }
+
+    public function likeArticle($articleId)
+    {
+        $article = Article::findOrFail($articleId);
+        
+        // Assurez-vous que l'utilisateur est authentifié
+        if (auth()->check()) {
+            // Met à jour l'article avec le like
+            $article->is_like = true;
+            $article->user_id = auth()->id(); // Si vous souhaitez associer un utilisateur à cet article aimé
+            $article->save();
+        }
+        
+        return redirect()->route('favorites');
+    }
+    
 }
+
+
+

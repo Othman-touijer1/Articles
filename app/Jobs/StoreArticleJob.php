@@ -1,34 +1,27 @@
 <?php
-
 namespace App\Jobs;
 
 use App\Models\Article;
 use Illuminate\Bus\Queueable;
 use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
 class StoreArticleJob implements ShouldQueue
 {
-    use Dispatchable, Queueable, SerializesModels;
+    use Dispatchable, Queueable;
 
     protected $articleData;
-    protected $youtubeUrl;
-
-    public function __construct($articleData, $youtubeUrl)
+    
+    public function __construct($articleData)
     {
         $this->articleData = $articleData;
-        $this->youtubeUrl = $youtubeUrl;
     }
 
     public function handle()
     {
-        // Créer l'article
-        $article = new Article();
-        $article->fill($this->articleData);
-        $article->save();
-
-        $article->youtube_url = $this->youtubeUrl;
+        // Créer l'article avec les données de base
+        $article = Article::create($this->articleData);
+        // Sauvegarder l'article dans la base de données
         $article->save();
     }
 }

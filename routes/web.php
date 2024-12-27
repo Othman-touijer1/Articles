@@ -63,6 +63,10 @@ Route::post('/settings/email', [EmailSettingController::class, 'store']);
 
 
 
+Route::get('favorites', [ArticleController::class, 'favorites'])->name('favorites');
+Route::post('/articles/{articleId}/like', [ArticleController::class, 'likeArticle'])->name('article.like');
+
+
 
 
 

@@ -399,7 +399,7 @@
 
             </div>
             
-            <a href="{{ route('articles.show', $article->id) }}" class="read-more">Lire la suite</a>
+            <a href="{{ route('articles.show', $article->id) }}" class="read-more">Lire la suite </a>
         </article>
     @endforeach
 </div>

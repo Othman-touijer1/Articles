@@ -31,7 +31,7 @@ class Article extends Model
      
     public function category()
     {
-        return $this->belongsTo(Category::class); // Assuming 'articles' table has a 'category_id' foreign key
+        return $this->belongsTo(Category::class); 
     }
     
 
