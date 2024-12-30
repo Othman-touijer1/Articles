@@ -65,46 +65,25 @@ class ArticleController extends Controller
     }
     public function store(Request $request)
 {
-    // Récupérer les données de l'article à partir du formulaire
     $articleData = $request->only(['title', 'excerpt', 'content']);
     $articleData['user_id'] = auth()->user()->id;
     $articleData['published_at'] = $request->datetime;
     $articleData['is_new'] = true;
 
-    // Si l'image existe, on la traite
     if ($request->hasFile('image') && $request->file('image')->isValid()) {
         $imagePath = $request->file('image')->store('public/images');
         $articleData['image'] = basename($imagePath);
     }
 
+    
     $delay = now()->addMinutes(2);
     StoreArticleJob::dispatch($articleData)->delay($delay);
-
-    // Ajouter un job pour récupérer l'URL YouTube après 3 minutes
-    $youtubeController = new YoutubeController();
-    $youtubeDelay = now()->addMinutes(3); // Délai total de 3 minutes
-    // Utilisez l'ID de l'article généré par la base de données
-    UpdateArticleYoutubeUrlJob::dispatch($youtubeController)->delay($youtubeDelay);
-   
-
-    // Récupérer les paramètres pour l'envoi de l'email après un certain délai
     $settings = EmailSetting::first();
     $emailDelay = $settings ? $settings->email_delay : 1;
-    $emailDelayTime = now()->addMinutes($emailDelay);
+    SendArticleCreatedEmail::dispatch($articleData)->delay(now()->addMinutes($emailDelay));
 
-    // Envoyer l'email après le délai
-    SendArticleCreatedEmail::dispatch($articleData)->delay($emailDelayTime);
-
-    // Redirection après le traitement
     return redirect('/home');
 }
-
-    
-    
-
-    
-
-
     public function edit($id)
     {
         $article = Article::findOrFail($id);
@@ -211,8 +190,12 @@ class ArticleController extends Controller
         
         return redirect()->route('favorites');
     }
+   
     
 }
+
+
+
 
 
 
