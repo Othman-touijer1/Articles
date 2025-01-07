@@ -190,9 +190,30 @@ class ArticleController extends Controller
         
         return redirect()->route('favorites');
     }
-   
+    public function newhome(){
+        $categories = Category::all();
+        $articles = Article::with('user', 'categories')->latest()->get();
+        return view('newhome', compact('articles', 'categories'));
+    }
+    public function welcome()
+    {
+        $categories = Category::all();
+        $articles = Article::with('user', 'categories')->latest()->get();
+        return view('welcome', compact('articles', 'categories'));
+    }
+    public function upvote(Article $article)
+    {
+        // Add your like logic here
+        return back();
+    }
+
+    public function downvote(Article $article)
+    {
+        // Add your dislike logic here
+        return back();
+    }
     
-}
+} 
 
 
 

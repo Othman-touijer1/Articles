@@ -12,7 +12,7 @@ use App\Http\Controllers\EmailSettingController;
 Route::get('/', function () {
     return view('welcome');
 });
-
+Route::get('/', [ArticleController::class, 'welcome']);
 Route::get('/ajouter', [ArticleController::class, 'ajouterarticle'])->name('ajouter');
 Route::post('/home', [ArticleController::class, 'store'])->name('store');
 Route::get('/home',  [ArticleController::class, 'home11'])->name('home');
@@ -64,6 +64,24 @@ Route::post('/settings/email', [EmailSettingController::class, 'store']);
 
 Route::get('favorites', [ArticleController::class, 'favorites'])->name('favorites');
 Route::post('/articles/{articleId}/like', [ArticleController::class, 'likeArticle'])->name('article.like');
+
+
+
+
+Route::get('/test', function () {
+    return view('home.test');
+});
+
+Route::get('/article/{article}/upvote', [ArticleController::class, 'upvote'] )->name('article.upvote');
+Route::get('/article/{article}/downvote',[ArticleController::class, 'downvote'] )->name('article.downvote');
+
+Route::get('/newhome', [ArticleController::class, 'newhome']);
+
+
+
+
+
+
 
 
 

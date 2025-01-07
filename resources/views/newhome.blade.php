@@ -25,82 +25,12 @@
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
     <link rel="manifest" href="site.webmanifest">
     <style>
-.entry__thumb img {
+    .entry__thumb img {
     width: 100%;  /* Les images prennent la largeur du conteneur parent */
     height: 400px; /* Hauteur fixe pour toutes les images */
     object-fit: cover; /* Cette propriété permet de garder l'aspect de l'image tout en la redimensionnant pour remplir l'espace */
-}
-.s-header__nav-wrap {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-}
-
-.s-header__nav {
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-}
-
-/* Style du titre principal */
-.site-title {
-    text-align: center;
-    font-size: 3.5rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.3rem;
-    margin: 2rem 0;
-    background: linear-gradient(45deg, #333, #777);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-}
-
-.site-title a {
-    text-decoration: none;
-    transition: all 0.3s ease;
-}
-
-.site-title a:hover {
-    opacity: 0.8;
-}
-/* Style pour le titre de section */
-.section-title {
-    text-align: center;
-    margin: 4rem auto 2rem;
-    position: relative;
-    padding-bottom: 1rem;
-    max-width: 800px;
-    margin-bottom:5px;
-}
-
-.section-title h2 {
-    font-size: 4rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.2rem;
-    color: #333;
-    margin-bottom: 1rem;
-}
-
-.section-title::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
-    height: 3px;
-    background: linear-gradient(90deg, #333, #777);
-}
-
-.section-title p {
-    font-size: 3rem;
-    color: #666;
-    margin-top: 0.5rem;
-}
-/* Style pour les articles */
-.brick.entry {
+    }
+    .brick.entry {
     background: rgba(255, 255, 255, 0.8);
     backdrop-filter: blur(10px);
     border-radius: 12px;
@@ -190,51 +120,10 @@
 .entry__more-link:hover::after {
     transform: scaleX(1);
 }
-.section-title {
-    text-align: center;
-    margin: 4rem auto 2rem;
-    position: relative;
-    padding-bottom: 1rem;
-    max-width: 800px;
-    margin-bottom:5px;
-}
-
-.section-title h2 {
-    font-size: 4rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.2rem;
-    color: #333;
-    margin-bottom: 1rem;
-    padding-top: 2rem;
-}
-
-.section-title::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60px;
-    height: 3px;
-    background: linear-gradient(90deg, #333, #777);
-}
-
-.section-title p {
-    font-size: 3rem;
-    color: #666;
-    margin-top: 0.5rem;
-}
-
-</style>
-
+    </style>
 </head>
-
-
 <body id="top">
-
-
-    <!-- preloader
+<!-- preloader
     ================================================== -->
     <div id="preloader">
         <div id="loader" class="dots-fade">
@@ -256,7 +145,7 @@
 
             <div class="s-header__branding">
                 <p class="site-title">
-                    <a href="index.html" rel="home">ArtiFlow</a>
+                    <a href="index.html" rel="home">Spurgeon.</a>
                 </p>
             </div>
 
@@ -280,16 +169,16 @@
                             </ul>
                         </li>
                         <li class="has-children">
-                            <a href="#0" title="" class="">Blog</a>
+                            <a href="#0" title="" class="">ADD your article</a>
                             <ul class="sub-menu">
-                                <li><a href="single-standard.html">Standard Post</a></li>
-                                <li><a href="single-video.html">Video Post</a></li>
-                                <li><a href="single-audio.html">Audio Post</a></li>
+                                <li><a href="/ajouter">Add your article</a></li>
+                                <li><a href="/favorites">Your favorites</a></li>
+                                <li><a href="/home">Your article</a></li>
                             </ul>
                         </li>
-                        <li><a href="styles.html" title="">Styles</a></li>
-                        <li><a href="about.html" title="">About</a></li>
-                        <li><a href="contact.html" title="">Contact</a></li>
+                        
+                        <li><a href="" title="">Contact</a></li>
+                        <li><a href=""></a>Style</li>
                     </ul> <!-- end s-header__nav -->
 
                 </nav> <!-- end s-header__nav-wrap -->
@@ -323,55 +212,162 @@
                 </svg>
             </a>
 
-        </header>
-        <section>
-            <div class="section-title">
-                <h2>Your Articles</h2>
-                <p>Discover our most inspiring and thought-provoking content</p>
-            </div>
-            <div id="bricks" class="bricks">
-                <div class="masonry">
-                    <div class="bricks-wrapper" data-animate-block>
-                       <div class="grid-sizer"></div>
-                        @foreach($articles as $article)
-                        <article class="brick entry" data-animate-el>
-        
-                            <div class="entry__thumb">
-                                <a href="single-standard.html" class="thumb-link">
-                                <img src="{{ $article->image ? asset('storage/images/' . $article->image) : 'https://via.placeholder.com/800x400' }}" 
-                                alt="Image de l'article" class="article-image">
-                                </a>
-                            </div> <!-- end entry__thumb -->
-        
-                            <div class="entry__text">
-                                <div class="entry__header">
-                                    <div class="entry__meta">
-                                    @foreach($article->categories as $category)
-                                        <h6>{{ $category->name }}</h6>
-                                    @endforeach
-                                        <span class="byline">
-                                           
-                                            <a href="#0">{{ $article->published_at }}</a>
+        </header> <!-- end s-header -->
+
+
+        <!-- # site-content
+        ================================================== -->
+        <section id="content" class="s-content">
+
+
+            <!-- hero -->
+            <div class="hero">
+
+                <div class="hero__slider swiper-container">
+
+                    <div class="swiper-wrapper">
+                        <article class="hero__slide swiper-slide">
+                            <div class="hero__entry-image" style="background-image: url('images/thumbs/featured/featured-01_2000.jpg');"></div>
+                            <div class="hero__entry-text">
+                                <div class="hero__entry-text-inner">
+                                    <div class="hero__entry-meta">
+                                        <span class="cat-links">
+                                            <a href="category.html">Inspiration</a>
                                         </span>
                                     </div>
-                                    <h1 class="entry__title"><a href="single-standard.html">{{ $article->title }}</a></h1>
-                                 </div>
-                                <div class="entry__excerpt">
-                                   
+                                    <h2 class="hero__entry-title">
+                                        <a href="single-standard.html">
+                                            Understanding and Using Negative Space.
+                                        </a>
+                                    </h2>
+                                    <p class="hero__entry-desc">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor 
+                                    incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis 
+                                    nostrud corporis est laudantium voluptatum consectetur adipiscing. 
+                                    </p>
+                                    <a class="hero__more-link" href="single-standard.html">Read More</a>
                                 </div>
-                                <a class="entry__more-link" href="{{ route('articles.show', $article->id) }}">Read More</a>
-                                <a class="entry__more-link" href="{{ route('articles.edit', $article->id) }}">Modifier</a>
-                                <form action="{{ route('articles.destroy', $article->id) }}" method="POST" style="display:inline;">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" style="background: none; border: none;">
-                                        <iconify-icon icon="material-symbols:delete-outline"></iconify-icon>
-                                        Supprimer
-                                    </button>
-                                </form>
-                            </div> <!-- end entry__text -->
-                        </article> <!-- end article -->
-                        @endforeach
+                            </div>
+                        </article>
+                        <article class="hero__slide swiper-slide">
+                            <div class="hero__entry-image" style="background-image: url('images/thumbs/featured/featured-02_2000.jpg');"></div>
+                            <div class="hero__entry-text">
+                                <div class="hero__entry-text-inner">
+                                    <div class="hero__entry-meta">
+                                        <span class="cat-links">
+                                            <a href="category.html">Health</a>
+                                        </span>
+                                    </div>
+                                    <h2 class="hero__entry-title">
+                                        <a href="single-standard.html">
+                                            10 Reasons Why Being in Nature Is Good For You.
+                                        </a>
+                                    </h2>
+                                    <p class="hero__entry-desc">
+                                    Voluptas harum sequi rerum quasi quisquam. Est tenetur ut doloribus in aliquid animi nostrum. Tempora 
+                                    quibusdam ad nulla. Quis autem possimus dolores est est fugiat saepe vel aut. Earum consequatur.
+                                    </p>
+                                    <a class="hero__more-link" href="single-standard.html">Read More</a>
+                                </div>
+                            </div>
+                        </article>
+                        <article class="hero__slide swiper-slide">
+                            <div class="hero__entry-image" style="background-image: url('images/thumbs/featured/featured-03_2000.jpg');"></div>
+                            <div class="hero__entry-text">
+                                <div class="hero__entry-text-inner">
+                                    <div class="hero__entry-meta">
+                                        <span class="cat-links">
+                                            <a href="category.html">Lifestyle</a>
+                                        </span>
+                                    </div>
+                                    <h2 class="hero__entry-title">
+                                        <a href="single-standard.html">
+                                            Six Relaxation Techniques to Reduce Stress.
+                                        </a>
+                                    </h2>
+                                    <p class="hero__entry-desc">
+                                    Quasi consequatur quia excepturi ullam velit. Repellat velit vel occaecati neque perspiciatis quibusdam nulla. 
+                                    Unde et earum. Nostrum nulla optio debitis odio modi. Quis autem possimus dolores est est fugiat saepe vel aut.
+                                    </p>
+                                    <a class="hero__more-link" href="single-standard.html">Read More</a>
+                                </div>
+                            </div>
+                        </article>
+                    </div> <!-- swiper-wrapper -->
+
+                    <div class="swiper-pagination"></div>
+    
+                </div> <!-- end hero slider -->
+
+                <a href="#bricks" class="hero__scroll-down smoothscroll">
+                    <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10.25 6.75L4.75 12L10.25 17.25"></path>
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.25 12H5"></path>
+                    </svg>
+                    <span>Scroll</span>
+                </a>
+
+            </div> <!-- end hero -->
+
+
+            <!--  masonry -->
+            <div id="bricks" class="bricks">
+
+    <div class="masonry">
+
+        <div class="bricks-wrapper" data-animate-block>
+
+            <div class="grid-sizer"></div>
+
+            @foreach($articles as $article)
+                <article class="brick entry" data-animate-el>
+        
+                    <div class="entry__thumb">
+                        <a href="{{ route('articles.show', $article->id) }}" class="thumb-link">
+                            <!-- Afficher l'image de l'article avec l'image par défaut si aucune image -->
+                            <img src="{{ $article->image ? asset('storage/images/' . $article->image) : 'https://via.placeholder.com/800x400' }}" 
+                                 srcset="{{ $article->image ? asset('storage/images/' . $article->image) : 'https://via.placeholder.com/800x400' }} 1x, {{ $article->image ? asset('storage/images/' . $article->image) : 'https://via.placeholder.com/800x400' }} 2x" 
+                                 alt="Image de l'article">
+                        </a>
+                    </div> <!-- end entry__thumb -->
+
+                    <div class="entry__text">
+                        <div class="entry__header">
+                            <div class="entry__meta">
+                                @foreach($article->categories as $category)
+                                    <span class="cat-links">
+                                        <a href="#">{{ $category->name }}</a>
+                                    </span>
+                                @endforeach
+                                <span class="byline">
+                                    <a href="#0">By: {{ $article->user->name }}</a>
+                                </span>
+                            </div>
+                            <h1 class="entry__title">
+                                <a href="{{ route('articles.show', $article->id) }}">{{ $article->title }}</a>
+                            </h1>
+                        </div>
+                        <div class="entry__excerpt">
+                            <p>{{ $article->excerpt }}</p>
+                        </div>
+                        <form action="{{ route('article.like', $article->id) }}" method="POST" style="display: inline-block;">
+                        @csrf
+                        <button type="submit" class="btn btn-success btn-sm">
+                            <iconify-icon icon="mdi:check-circle-outline" style="color: white;"></iconify-icon>Like
+                        </button>
+                         </form>
+                        <a class="entry__more-link" href="{{ route('articles.show', $article->id) }}">READ MORE</a>
+                    </div> <!-- end entry__text -->
+                
+                </article> <!-- end article -->
+            @endforeach
+
+        </div> <!-- end bricks-wrapper -->
+
+    </div> <!-- end masonry -->
+
+</div> <!-- end bricks -->
+
                     </div> <!-- end bricks-wrapper -->
 
                 </div> <!-- end masonry-->
@@ -419,40 +415,9 @@
         ================================================== -->
         <footer id="colophon" class="s-footer">
 
-            <div class="row s-footer__subscribe">
-                <div class="column lg-12">
-
-                    <h2>
-                    Subscribe to Our Newsletter.
-                    </h2>
-                    <p>
-                    Subscribe now to get all latest updates
-                    </p>
-
-                    <form id="mc-form" class="mc-form">
-                        <input type="email" name="EMAIL" id="mce-EMAIL" class="u-fullwidth text-center" placeholder="Your Email Address" title="The domain portion of the email address is invalid (the portion after the @)." pattern="^([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x22([^\x0d\x22\x5c\x80-\xff]|\x5c[\x00-\x7f])*\x22)(\x2e([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x22([^\x0d\x22\x5c\x80-\xff]|\x5c[\x00-\x7f])*\x22))*\x40([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x5b([^\x0d\x5b-\x5d\x80-\xff]|\x5c[\x00-\x7f])*\x5d)(\x2e([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x5b([^\x0d\x5b-\x5d\x80-\xff]|\x5c[\x00-\x7f])*\x5d))*(\.\w{2,})+$" required>
-                        <input type="submit" name="subscribe" value="Subscribe" class="btn--small btn--primary u-fullwidth">
-                        <!-- <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_cdb7b577e41181934ed6a6a44_9a91cfe7b3" tabindex="-1" value=""></div> -->
-                        <div class="mc-status"></div>
-                    </form>
-
-                </div>
-            </div> <!-- end s-footer__subscribe -->
+            
 
             <div class="row s-footer__main">
-
-                <div class="column lg-5 md-6 tab-12 s-footer__about">
-                    <h4>Spurgeon</h4>
-
-                    <p>
-                    Lorem ipsum dolor sit amet, consectetur 
-                    adipiscing elit, sed do eiusmod tempor 
-                    incididunt ut labore et dolore magna aliqua. 
-                    Ut enim ad minim veniam, quis nostrud exercitation 
-                    ullamco laboris nisi ut aliquip ex ea commodo 
-                    </p>
-                </div> <!-- end s-footer__about -->
-
                 <div class="column lg-5 md-6 tab-12">
                     <div class="row">
                         <div class="column lg-6">
@@ -512,12 +477,7 @@
                         </li>
                     </ul>
                 </div>
-                <div class="column lg-5 md-6 tab-12">
-                    <div class="ss-copyright">
-                        <span>© Copyright Spurgeon 2021</span> 
-                        <span>Design by <a href="https://www.styleshout.com/">StyleShout</a> Distribution <a href="https://themewagon.com">ThemeWagon</a></span>
-                    </div>
-                </div>
+                
 
             </div> <!-- end s-footer__bottom -->
            

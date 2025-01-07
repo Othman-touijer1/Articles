@@ -1,371 +1,509 @@
-<!doctype html>
-<html lang="en">
-
+<!DOCTYPE html>
+<html lang="en" class="no-js" >
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>MaterailM Free Bootstrap Admin Template by WrapPixel</title>
-  <link rel="shortcut icon" type="image/png" href="../assets/images/logos/favicon.png" />
-  <link rel="stylesheet" href="../assets/css/styles.min.css" />
-  <style>
-    /* Global Styles */
-    body {
-      font-family: 'Helvetica Neue', sans-serif;
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      background-color: #f7f7f7;
-      color: #444;
-    }
 
-    /* Sidebar */
-    .left-sidebar {
-      background-color: #333;
-      width: 270px;
-      position: fixed;
-      height: 100%;
-      padding-top: 20px;
-      box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
-      transition: all 0.3s ease;
-    }
+    <!--- basic page needs
+    ================================================== -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Spurgeon</title>
 
-    .brand-logo img {
-      max-width: 120px;
-      margin: 0 auto;
-      display: block;
-    }
+    <script>
+        document.documentElement.classList.remove('no-js');
+        document.documentElement.classList.add('js');
+    </script>
 
-    .sidebar-nav {
-      padding-left: 0;
-    }
+    <!-- CSS
+    ================================================== -->
+    <link rel="stylesheet" href="css/vendor.css">
+    <link rel="stylesheet" href="css/styles.css">
 
-    .sidebar-nav .sidebar-item {
-      list-style: none;
-      transition: background-color 0.3s ease;
-    }
+    <!-- favicons
+    ================================================== -->
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="manifest" href="site.webmanifest">
+    <style>
+        /* Centre les liens de navigation */
+        .entry__thumb img {
+    width: 100%;  /* Les images prennent la largeur du conteneur parent */
+    height: 400px; /* Hauteur fixe pour toutes les images */
+    object-fit: cover; /* Cette propriété permet de garder l'aspect de l'image tout en la redimensionnant pour remplir l'espace */
+}
+.s-header__nav-wrap {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
 
-    .sidebar-nav .sidebar-item a {
-      color: #fff;
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      font-size: 18px;
-      padding: 12px 20px;
-      width: 100%;
-      transition: color 0.3s ease;
-    }
+.s-header__nav {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+}
 
-    .sidebar-nav .sidebar-item a:hover {
-      background-color: #4e5b66;
-      color: #c1c1c1;
-    }
+/* Style du titre principal */
+.site-title {
+    text-align: center;
+    font-size: 3.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.3rem;
+    margin: 2rem 0;
+    background: linear-gradient(45deg, #333, #777);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+}
 
-    .sidebar-nav .sidebar-item.active a {
-      background-color: #007bff;
-      color: white;
-    }
+.site-title a {
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
 
-    /* Main Content Area */
-    .body-wrapper {
-      margin-left: 270px;
-      padding: 30px;
-      background-color: #fff;
-      min-height: 100vh;
-    }
+.site-title a:hover {
+    opacity: 0.8;
+}
+/* Style pour le titre de section */
+.section-title {
+    text-align: center;
+    margin: 4rem auto 2rem;
+    position: relative;
+    padding-bottom: 1rem;
+    max-width: 800px;
+    margin-bottom:5px;
+}
 
-    /* Navbar */
-    .app-header {
-      background-color: #fff;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    }
+.section-title h2 {
+    font-size: 4rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.2rem;
+    color: #333;
+    margin-bottom: 1rem;
+}
 
-    .navbar-nav .nav-link {
-      color: #444;
-      font-size: 16px;
-      font-weight: 600;
-      padding: 12px 18px;
-      transition: color 0.3s ease;
-    }
+.section-title::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, #333, #777);
+}
 
-    .navbar-nav .nav-link:hover {
-      color: #007bff;
-    }
+.section-title p {
+    font-size: 3rem;
+    color: #666;
+    margin-top: 0.5rem;
+}
+/* Style pour les articles */
+.brick.entry {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
 
-    /* Articles Section */
-    .articles-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-      gap: 30px;
-      margin-top: 40px;
-    }
+.brick.entry:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+}
 
-    .article {
-      background-color: #fff;
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-      transition: transform 0.3s ease;
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      position: relative;
-    }
+.entry__thumb img {
+    border-radius: 12px 12px 0 0;
+    transition: opacity 0.3s ease;
+}
 
-    .article:hover {
-      transform: translateY(-8px);
-    }
+.entry__text {
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 0 0 12px 12px;
+}
 
-    .article-image {
-      width: 100%;
-      height: 250px;
-      object-fit: cover;
-      border-radius: 10px;
-    }
+.entry__meta {
+    margin-bottom: 1rem;
+}
 
-    .article .title {
-      font-size: 24px;
-      font-weight: 700;
-      margin: 20px 0;
-      color: #333;
-    }
+.entry__meta a {
+    color: #555;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
 
-    .article .excerpt {
-      font-size: 18px;
-      color: #555;
-      margin-bottom: 20px;
-    }
+.entry__meta a:hover {
+    color: #000;
+}
 
-    .article .read-more {
-      text-decoration: none;
-      color: #007bff;
-      font-weight: bold;
-      border: 1px solid #007bff;
-      padding: 10px 20px;
-      border-radius: 5px;
-      transition: all 0.3s ease;
-    }
+.cat-links a {
+    background: rgba(0, 0, 0, 0.05);
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+}
 
-    .article .read-more:hover {
-      background-color: #007bff;
-      color: #fff;
-    }
+.entry__title {
+    margin: 1rem 0;
+}
 
-    .article .author {
-      font-size: 16px;
-      color: #777;
-    }
+.entry__title a {
+    color: #333;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
 
-    .article .datetime {
-      font-size: 14px;
-      color: #aaa;
-    }
+.entry__title a:hover {
+    color: #000;
+}
 
-    /* Button Styles */
-    .custom-button {
-      padding: 14px 30px;
-      background-color: #007bff;
-      color: white;
-      border: 2px solid #007bff;
-      border-radius: 50px;
-      font-size: 18px;
-      font-weight: 600;
-      text-align: center;
-      display: block;
-      width: 100%;
-      margin-top: 30px;
-      transition: all 0.3s ease;
-    }
+.entry__excerpt {
+    color: #666;
+    line-height: 1.6;
+}
 
-    .custom-button:hover {
-      background-color: #0056b3;
-      transform: scale(1.05);
-    }
+.entry__more-link {
+    display: inline-block;
+    margin-top: 1rem;
+    color: #333;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+    position: relative;
+}
 
-    .custom-button:focus {
-      outline: none;
-      box-shadow: 0 0 10px rgba(0, 123, 255, 0.7);
-    }
+.entry__more-link::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: -2px;
+    left: 0;
+    background-color: #333;
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
 
-    /* Responsive Design */
-    @media (max-width: 768px) {
-      .left-sidebar {
-        width: 80px;
-      }
+.entry__more-link:hover::after {
+    transform: scaleX(1);
+}
+</style>
 
-      .body-wrapper {
-        margin-left: 80px;
-      }
-
-      .navbar-nav .nav-item {
-        margin-left: 10px;
-      }
-
-      .articles-container {
-        grid-template-columns: 1fr;
-      }
-
-      .article {
-        width: 100%;
-      }
-
-      /* Navbar and Dropdown Adjustments */
-      .navbar-collapse {
-        background-color: #f8f9fa;
-        padding: 15px;
-        border-radius: 8px;
-      }
-
-      .navbar-nav .nav-item form {
-        margin-right: 20px;
-      }
-    }
-  </style>
 </head>
 
-<body>
-  <!--  Body Wrapper -->
-  <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
-    data-sidebar-position="fixed" data-header-position="fixed">
-    <!-- Sidebar Start -->
-    <aside class="left-sidebar">
-      <div>
-        <div class="brand-logo d-flex align-items-center justify-content-center">
-          <a href="./index.html" class="text-nowrap logo-img">
-            <img src="../assets/images/logos/logo.svg" alt="Logo"/>
-          </a>
-          <div class="close-btn d-xl-none d-block sidebartoggler cursor-pointer" id="sidebarCollapse">
-            <i class="ti ti-x fs-8"></i>
-          </div>
+
+<body id="top">
+
+
+    <!-- preloader
+    ================================================== -->
+    <div id="preloader">
+        <div id="loader" class="dots-fade">
+            <div></div>
+            <div></div>
+            <div></div>
         </div>
-
-        <!-- Sidebar navigation-->
-        <nav class="sidebar-nav scroll-sidebar" data-simplebar="">
-          <ul id="sidebarnav">
-            <li class="nav-small-cap">
-              <iconify-icon icon="solar:menu-dots-linear" class="nav-small-cap-icon fs-4"></iconify-icon>
-              <span class="hide-menu" style="color:white">Home</span>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link" href="/acceuil" aria-expanded="false">
-                <iconify-icon icon="solar:widget-add-line-duotone"></iconify-icon>
-                <span class="hide-menu" style="color:white"> Accueil</span>
-              </a>
-            </li>
-            <li><span class="sidebar-divider lg"></span></li>
-            <li class="sidebar-item">
-              <a class="sidebar-link" href="/home" aria-expanded="false">
-                <iconify-icon icon="solar:layers-minimalistic-bold-duotone"></iconify-icon>
-                <span class="hide-menu" style="color:white">Vos articles</span>
-              </a>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link" href="/affichercategories" aria-expanded="false">
-                <iconify-icon icon="solar:danger-circle-line-duotone"></iconify-icon>
-                <span class="hide-menu" style="color:white">Categories</span>
-              </a>
-            </li>
-            <li class="sidebar-item">
-              <a class="sidebar-link" href="./ui-card.html" aria-expanded="false">
-                <iconify-icon icon="solar:bookmark-square-minimalistic-line-duotone"></iconify-icon>
-                <span class="hide-menu" style="color:white">Favorites</span>
-              </a>
-            </li>
-            <li style="color:blue">
-              <a href="{{ route('ajouter') }}" class="text-sm font-medium text-gray-500 hover:text-gray-700 custom-button-wrapper">
-                <button class="inline-flex items-center px-4 py-2 border border-transparent rounded-md bg-blue-500 text-white hover:bg-blue-700 focus:outline-none focus:bg-blue-700 transition duration-150 ease-in-out custom-button">
-                  {{ __('Partager votre article') }}
-                </button>
-              </a>
-            </li>
-            <li><span class="sidebar-divider lg"></span></li>
-          </ul>
-        </nav>
-        <!-- End Sidebar navigation -->
-      </div>
-    </aside>
-
-    <!-- Main Content -->
-    <div class="body-wrapper">
-      <!-- Header Start -->
-      <header class="app-header">
-        <nav class="navbar navbar-expand-lg navbar-light">
-          <ul class="navbar-nav">
-            <li class="nav-item d-block d-xl-none">
-              <a class="nav-link sidebartoggler" id="headerCollapse" href="javascript:void(0)">
-                <i class="ti ti-menu-2"></i>
-              </a>
-            </li>
-          </ul>
-          <div class="navbar-collapse justify-content-end px-0" id="navbarNav">
-            <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-end">
-              <li class="nav-item dropdown">
-                <a class="nav-link" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown" aria-expanded="false">
-                  <img src="../assets/images/profile/user-1.jpg" alt="" width="35" height="35" class="rounded-circle">
-                </a>
-                <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
-                  <div class="message-body">
-                    <form method="GET" action="{{ route('profile.edit') }}">
-                      <center><div style="color:lightblue">{{ Auth::user()->name }}</div></center>
-                      @csrf
-                      <button type="submit" class="d-flex align-items-center gap-2 dropdown-item btn btn-link text-decoration-none text-left">
-                        <i class="ti ti-user fs-6"></i>
-                        <p class="mb-0 fs-3">{{ __('Profile') }}</p>
-                      </button>
-                    </form>
-                    <form method="POST" action="{{ route('logout') }}">
-                      @csrf
-                      <button type="submit" class="d-flex align-items-center gap-2 dropdown-item btn btn-link text-decoration-none text-left" onclick="event.preventDefault(); this.closest('form').submit();">
-                        <i class="ti ti-mail fs-6"></i>
-                        <p class="mb-0 fs-3">{{ __('Log Out') }}</p>
-                      </button>
-                    </form>
-                  </div>
-                </div>
-              </li>
-            </ul>
-          </div>
-        </nav>
-      </header>
-      <!-- Header End -->
-
-      <!-- Articles Section -->
-      <center><h1>Articles pour {{ Auth::user()->name }}</h1></center>
-      <div class="articles-container" style="margin_top:24px">
-         @foreach($favoriteArticles as $article)
-         <article class="article">
-          <img src="{{ $article->image ? asset('storage/images/' . $article->image) : 'https://via.placeholder.com/800x400' }}" 
-               alt="Image de l'article" class="article-image">
-          <h1 class="title">{{ $article->title }}</h1>
-          <div class="excerpt">
-            <label for="content">{{ $article->excerpt }}</label>
-          </div>
-          @foreach($article->categories as $category)
-          <h6>{{ $category->name }}</h6>
-          @endforeach
-          <div class="datetime" style="color:blue">
-            <label for="datetime">{{ $article->published_at }}</label>
-          </div>
-          <label style="color:black">{{ $article->user->name }}</label>
-          @if($article->isNew())
-          <span class="new-star">⭐ Nouveau</span>
-          @endif
-          <a href="{{ route('articles.show', $article->id) }}" class="read-more">Lire la suite</a>
-        </article>
-         @endforeach
-
-      </div>
-
-
     </div>
-  </div>
 
-  <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
-  <script src="../assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="../assets/js/sidebarmenu.js"></script>
-  <script src="../assets/js/app.min.js"></script>
-  <script src="../assets/libs/apexcharts/dist/apexcharts.min.js"></script>
-  <script src="../assets/libs/simplebar/dist/simplebar.js"></script>
-  <script src="../assets/js/dashboard.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
-</body>  
+
+    <!-- page wrap
+    ================================================== -->
+    <div id="page" class="s-pagewrap ss-home">
+
+
+        <!-- # site header 
+        ================================================== -->
+        <header id="masthead" class="s-header">
+
+            <div class="s-header__branding">
+                <p class="site-title">
+                    <a href="index.html" rel="home">ArtiFlow</a>
+                </p>
+            </div>
+
+            <div class="row s-header__navigation">
+
+                <nav class="s-header__nav-wrap">
+    
+                    <h3 class="s-header__nav-heading">Navigate to</h3>
+    
+                    <ul class="s-header__nav">
+                        <li class="current-menu-item"><a href="index.html" title="">Home</a></li>
+                        <li class="has-children">
+                            <a href="#0" title="" class="">Categories</a>
+                            <ul class="sub-menu">
+                                <li><a href="category.html">Design</a></li>
+                                <li><a href="category.html">Lifestyle</a></li>
+                                <li><a href="category.html">Inspiration</a></li>
+                                <li><a href="category.html">Work</a></li>
+                                <li><a href="category.html">Health</a></li>
+                                <li><a href="category.html">Photography</a></li>
+                            </ul>
+                        </li>
+                        <li class="has-children">
+                            <a href="#0" title="" class="">Blog</a>
+                            <ul class="sub-menu">
+                                <li><a href="single-standard.html">Standard Post</a></li>
+                                <li><a href="single-video.html">Video Post</a></li>
+                                <li><a href="single-audio.html">Audio Post</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="styles.html" title="">Styles</a></li>
+                        <li><a href="about.html" title="">About</a></li>
+                        <li><a href="contact.html" title="">Contact</a></li>
+                    </ul> <!-- end s-header__nav -->
+
+                </nav> <!-- end s-header__nav-wrap -->
+    
+            </div> <!-- end s-header__navigation -->
+
+            <div class="s-header__search">
+
+                <div class="s-header__search-inner">
+                    <div class="row">
+    
+                        <form role="search" method="get" class="s-header__search-form" action="#">
+                            <label>
+                                <span class="u-screen-reader-text">Search for:</span>
+                                <input type="search" class="s-header__search-field" placeholder="Search for..." value="" name="s" title="Search for:" autocomplete="off">
+                            </label>
+                            <input type="submit" class="s-header__search-submit" value="Search"> 
+                        </form>
+    
+                        <a href="#0" title="Close Search" class="s-header__search-close">Close</a>
+    
+                    </div> <!-- end row -->
+                </div> <!-- s-header__search-inner -->
+    
+            </div> <!-- end s-header__search -->
+
+            <a class="s-header__menu-toggle" href="#0"><span>Menu</span></a>
+            <a class="s-header__search-trigger" href="#">
+                <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.25 19.25L15.5 15.5M4.75 11C4.75 7.54822 7.54822 4.75 11 4.75C14.4518 4.75 17.25 7.54822 17.25 11C17.25 14.4518 14.4518 17.25 11 17.25C7.54822 17.25 4.75 14.4518 4.75 11Z"></path>
+                </svg>
+            </a>
+
+        </header>
+        <div class="section-title">
+    <h2>Favorite Articles</h2>
+    <p>Discover our most inspiring and thought-provoking content</p>
+</div>
+          
+            <div id="bricks" class="bricks">
+
+                <div class="masonry">
+
+                    <div class="bricks-wrapper" data-animate-block>
+
+                        <div class="grid-sizer"></div>
+                        @foreach($favoriteArticles as $article)
+                        <article class="brick entry" data-animate-el>
+        
+                            <div class="entry__thumb">
+                                <a href="single-standard.html" class="thumb-link">
+                                <img src="{{ $article->image ? asset('storage/images/' . $article->image) : 'https://via.placeholder.com/800x400' }}" 
+                                         alt="Image de l'article" class="article-image">
+                                </a>
+                            </div> <!-- end entry__thumb -->
+        
+                            <div class="entry__text">
+                                <div class="entry__header">
+                                    <div class="entry__meta">
+                                    @foreach($article->categories as $category)
+                                    <h6>{{ $category->name }}</h6>
+                                    @endforeach
+                                        <span class="byline">
+                                            By:
+                                            <label style="color:black">{{ $article->user->name }}</label>
+                                        </span>
+                                    </div>
+                                    <h1 class="entry__title"><a href="single-standard.html">{{ $article->title }}</a></h1>
+                                 </div>
+                                <div class="entry__excerpt">
+                                <label for="content">{{ $article->excerpt }}</label>
+                                </div>
+                                <a class="entry__more-link" href="{{ route('articles.show', $article->id) }}">Read More</a>
+                            </div> <!-- end entry__text -->
+                        
+                        </article>
+                        @endforeach
+
+                        
+
+                        
+        
+                        
+        
+                    </div> <!-- end bricks-wrapper -->
+
+                </div> <!-- end masonry-->
+
+
+                <!-- pagination -->
+                <div class="row pagination">
+                    <div class="column lg-12">
+                        <nav class="pgn">
+                            <ul>
+                                <li>
+                                    <a class="pgn__prev" href="#0">
+                                        <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10.25 6.75L4.75 12L10.25 17.25"></path>
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.25 12H5"></path>
+                                        </svg>
+                                    </a>
+                                </li>
+                                <li><a class="pgn__num" href="#0">1</a></li>
+                                <li><span class="pgn__num current">2</span></li>
+                                <li><a class="pgn__num" href="#0">3</a></li>
+                                <li><a class="pgn__num" href="#0">4</a></li>
+                                <li><a class="pgn__num" href="#0">5</a></li>
+                                <li><span class="pgn__num dots">…</span></li>
+                                <li><a class="pgn__num" href="#0">8</a></li>
+                                <li>
+                                    <a class="pgn__next" href="#0">
+                                        <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13.75 6.75L19.25 12L13.75 17.25"></path>
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 12H4.75"></path>
+                                        </svg>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav> <!-- end pgn -->
+                    </div> <!-- end column -->
+                </div> <!-- end pagination -->
+
+            </div> <!-- end bricks -->
+
+        </section> <!-- end s-content -->
+
+
+        <!-- # site-footer
+        ================================================== -->
+        <footer id="colophon" class="s-footer">
+
+            <div class="row s-footer__subscribe">
+                <div class="column lg-12">
+
+                    <h2>
+                    Subscribe to Our Newsletter.
+                    </h2>
+                    <p>
+                    Subscribe now to get all latest updates
+                    </p>
+
+                    <form id="mc-form" class="mc-form">
+                        <input type="email" name="EMAIL" id="mce-EMAIL" class="u-fullwidth text-center" placeholder="Your Email Address" title="The domain portion of the email address is invalid (the portion after the @)." pattern="^([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x22([^\x0d\x22\x5c\x80-\xff]|\x5c[\x00-\x7f])*\x22)(\x2e([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x22([^\x0d\x22\x5c\x80-\xff]|\x5c[\x00-\x7f])*\x22))*\x40([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x5b([^\x0d\x5b-\x5d\x80-\xff]|\x5c[\x00-\x7f])*\x5d)(\x2e([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x5b([^\x0d\x5b-\x5d\x80-\xff]|\x5c[\x00-\x7f])*\x5d))*(\.\w{2,})+$" required>
+                        <input type="submit" name="subscribe" value="Subscribe" class="btn--small btn--primary u-fullwidth">
+                        <!-- <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_cdb7b577e41181934ed6a6a44_9a91cfe7b3" tabindex="-1" value=""></div> -->
+                        <div class="mc-status"></div>
+                    </form>
+
+                </div>
+            </div> <!-- end s-footer__subscribe -->
+
+            <div class="row s-footer__main">
+
+                <div class="column lg-5 md-6 tab-12 s-footer__about">
+                    <h4>Spurgeon</h4>
+
+                    <p>
+                    Lorem ipsum dolor sit amet, consectetur 
+                    adipiscing elit, sed do eiusmod tempor 
+                    incididunt ut labore et dolore magna aliqua. 
+                    Ut enim ad minim veniam, quis nostrud exercitation 
+                    ullamco laboris nisi ut aliquip ex ea commodo 
+                    </p>
+                </div> <!-- end s-footer__about -->
+
+                <div class="column lg-5 md-6 tab-12">
+                    <div class="row">
+                        <div class="column lg-6">
+                            <h4>Categories</h4>
+                            <ul class="link-list">
+                                <li><a href="category.html">Lifestyle</a></li>
+                                <li><a href="category.html">Workplace</a></li>
+                                <li><a href="category.html">Inspiration</a></li>
+                                <li><a href="category.html">Design</a></li>
+                                <li><a href="category.html">Health</a></li>
+                                <li><a href="category.html">Photography</a></li>
+                            </ul>
+                        </div>
+                        <div class="column lg-6">
+                            <h4>Site Links</h4>
+                            <ul class="link-list">
+                                <li><a href="index.html">Home</a></li>
+                                <li><a href="category.html">Categories</a></li>
+                                <li><a href="category.html">Blog</a></li>
+                                <li><a href="about.html">About</a></li>
+                                <li><a href="about.html">Contact</a></li>
+                                <li><a href="#0">Terms & Policy</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div> <!-- end s-footer__main -->
+
+            <div class="row s-footer__bottom">
+
+                <div class="column lg-7 md-6 tab-12">
+                    <ul class="s-footer__social">
+                        <li>
+                            <a href="#0">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path d="M12.001 2.002c-5.522 0-9.999 4.477-9.999 9.999 0 4.99 3.656 9.126 8.437 9.879v-6.988h-2.54v-2.891h2.54V9.798c0-2.508 1.493-3.891 3.776-3.891 1.094 0 2.24.195 2.24.195v2.459h-1.264c-1.24 0-1.628.772-1.628 1.563v1.875h2.771l-.443 2.891h-2.328v6.988C18.344 21.129 22 16.992 22 12.001c0-5.522-4.477-9.999-9.999-9.999z"></path></svg>
+                                <span class="u-screen-reader-text">Facebook</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#0">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill:rgba(0, 0, 0, 1);transform:;-ms-filter:"><path d="M19.633,7.997c0.013,0.175,0.013,0.349,0.013,0.523c0,5.325-4.053,11.461-11.46,11.461c-2.282,0-4.402-0.661-6.186-1.809 c0.324,0.037,0.636,0.05,0.973,0.05c1.883,0,3.616-0.636,5.001-1.721c-1.771-0.037-3.255-1.197-3.767-2.793 c0.249,0.037,0.499,0.062,0.761,0.062c0.361,0,0.724-0.05,1.061-0.137c-1.847-0.374-3.23-1.995-3.23-3.953v-0.05 c0.537,0.299,1.16,0.486,1.82,0.511C3.534,9.419,2.823,8.184,2.823,6.787c0-0.748,0.199-1.434,0.548-2.032 c1.983,2.443,4.964,4.04,8.306,4.215c-0.062-0.3-0.1-0.611-0.1-0.923c0-2.22,1.796-4.028,4.028-4.028 c1.16,0,2.207,0.486,2.943,1.272c0.91-0.175,1.782-0.512,2.556-0.973c-0.299,0.935-0.936,1.721-1.771,2.22 c0.811-0.088,1.597-0.312,2.319-0.624C21.104,6.712,20.419,7.423,19.633,7.997z"></path></svg>
+                                <span class="u-screen-reader-text">Twitter</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#0">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill:rgba(0, 0, 0, 1);transform:;-ms-filter:"><path d="M11.999,7.377c-2.554,0-4.623,2.07-4.623,4.623c0,2.554,2.069,4.624,4.623,4.624c2.552,0,4.623-2.07,4.623-4.624 C16.622,9.447,14.551,7.377,11.999,7.377L11.999,7.377z M11.999,15.004c-1.659,0-3.004-1.345-3.004-3.003 c0-1.659,1.345-3.003,3.004-3.003s3.002,1.344,3.002,3.003C15.001,13.659,13.658,15.004,11.999,15.004L11.999,15.004z"></path><circle cx="16.806" cy="7.207" r="1.078"></circle><path d="M20.533,6.111c-0.469-1.209-1.424-2.165-2.633-2.632c-0.699-0.263-1.438-0.404-2.186-0.42 c-0.963-0.042-1.268-0.054-3.71-0.054s-2.755,0-3.71,0.054C7.548,3.074,6.809,3.215,6.11,3.479C4.9,3.946,3.945,4.902,3.477,6.111 c-0.263,0.7-0.404,1.438-0.419,2.186c-0.043,0.962-0.056,1.267-0.056,3.71c0,2.442,0,2.753,0.056,3.71 c0.015,0.748,0.156,1.486,0.419,2.187c0.469,1.208,1.424,2.164,2.634,2.632c0.696,0.272,1.435,0.426,2.185,0.45 c0.963,0.042,1.268,0.055,3.71,0.055s2.755,0,3.71-0.055c0.747-0.015,1.486-0.157,2.186-0.419c1.209-0.469,2.164-1.424,2.633-2.633 c0.263-0.7,0.404-1.438,0.419-2.186c0.043-0.962,0.056-1.267,0.056-3.71s0-2.753-0.056-3.71C20.941,7.57,20.801,6.819,20.533,6.111z M19.315,15.643c-0.007,0.576-0.111,1.147-0.311,1.688c-0.305,0.787-0.926,1.409-1.712,1.711c-0.535,0.199-1.099,0.303-1.67,0.311 c-0.95,0.044-1.218,0.055-3.654,0.055c-2.438,0-2.687,0-3.655-0.055c-0.569-0.007-1.135-0.112-1.669-0.311 c-0.789-0.301-1.414-0.923-1.719-1.711c-0.196-0.534-0.302-1.099-0.311-1.669c-0.043-0.95-0.053-1.218-0.053-3.654 c0-2.437,0-2.686,0.053-3.655c0.007-0.576,0.111-1.146,0.311-1.687c0.305-0.789,0.93-1.41,1.719-1.712 c0.534-0.198,1.1-0.303,1.669-0.311c0.951-0.043,1.218-0.055,3.655-0.055c2.437,0,2.687,0,3.654,0.055 c0.571,0.007,1.135,0.112,1.67,0.311c0.786,0.303,1.407,0.925,1.712,1.712c0.196,0.534,0.302,1.099,0.311,1.669 c0.043,0.951,0.054,1.218,0.054,3.655c0,2.436,0,2.698-0.043,3.654H19.315z"></path></svg>
+                                <span class="u-screen-reader-text">Instagram</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#0">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: rgba(0, 0, 0, 1);transform: ;msFilter:;"><path d="M11.99 2C6.472 2 2 6.473 2 11.99c0 4.232 2.633 7.85 6.35 9.306-.088-.79-.166-2.006.034-2.868.182-.78 1.172-4.966 1.172-4.966s-.299-.599-.299-1.484c0-1.388.805-2.425 1.808-2.425.853 0 1.264.64 1.264 1.407 0 .858-.546 2.139-.827 3.327-.235.994.499 1.805 1.479 1.805 1.775 0 3.141-1.872 3.141-4.575 0-2.392-1.719-4.064-4.173-4.064-2.843 0-4.512 2.132-4.512 4.335 0 .858.331 1.779.744 2.28a.3.3 0 0 1 .069.286c-.076.315-.245.994-.277 1.133-.044.183-.145.222-.335.134-1.247-.581-2.027-2.405-2.027-3.871 0-3.151 2.289-6.045 6.601-6.045 3.466 0 6.159 2.469 6.159 5.77 0 3.444-2.171 6.213-5.184 6.213-1.013 0-1.964-.525-2.29-1.146l-.623 2.374c-.225.868-.834 1.956-1.241 2.62a10 10 0 0 0 2.958.445c5.517 0 9.99-4.473 9.99-9.99S17.507 2 11.99 2"></path></svg>
+                                <span class="u-screen-reader-text">Pinterest</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="column lg-5 md-6 tab-12">
+                    <div class="ss-copyright">
+                        <span>© Copyright Spurgeon 2021</span> 
+                        <span>Design by <a href="https://www.styleshout.com/">StyleShout</a> Distribution <a href="https://themewagon.com">ThemeWagon</a></span>
+                    </div>
+                </div>
+
+            </div> <!-- end s-footer__bottom -->
+           
+            <div class="ss-go-top">
+                <a class="smoothscroll" title="Back to Top" href="#top">
+                    <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17.25 10.25L12 4.75L6.75 10.25"/>
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 19.25V5.75"/>
+                    </svg>
+                </a>
+            </div> <!-- end ss-go-top -->
+
+        </footer><!-- end s-footer -->
+
+
+    <!-- Java Script
+    ================================================== -->
+    <script src="js/plugins.js"></script>
+    <script src="js/main.js"></script>
+
+</body>
 </html>

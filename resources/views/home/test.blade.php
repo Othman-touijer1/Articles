@@ -6,7 +6,7 @@
     ================================================== -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Video Post - Spurgeon</title>
+    <title>Spurgeon</title>
 
     <script>
         document.documentElement.classList.remove('no-js');
@@ -25,103 +25,171 @@
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
     <link rel="manifest" href="site.webmanifest">
     <style>
-      /* Article Container */
-.articles-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1.5rem;
-  max-width: var(--width-max);
-  margin: 0 auto;
-  padding: 1rem;
+        /* Centre les liens de navigation */
+.s-header__nav-wrap {
+    display: flex;
+    justify-content: center;
+    width: 100%;
 }
 
-/* Article Card */
-.article {
-  background-color: var(--color-white);
-  border-radius: 4px;
-  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s ease;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
+.s-header__nav {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
 }
 
-.article:hover {
-  transform: translateY(-2px);
+/* Style du titre principal */
+.site-title {
+    text-align: center;
+    font-size: 3.5rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.3rem;
+    margin: 2rem 0;
+    background: linear-gradient(45deg, #333, #777);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
 }
 
-/* Article Image */
-.article-image {
-  width: 400px;
-  height: 300px;
-  object-fit: cover;
-  border-radius: 4px 4px 0 0;
+.site-title a {
+    text-decoration: none;
+    transition: all 0.3s ease;
 }
 
-/* Article Content */
-.article h1.title {
-  font-size: 1.1rem;
-  margin: 0.8rem;
-  line-height: 1.4;
+.site-title a:hover {
+    opacity: 0.8;
+}
+/* Style pour le titre de section */
+.section-title {
+    text-align: center;
+    margin: 4rem auto 2rem;
+    position: relative;
+    padding-bottom: 1rem;
+    max-width: 800px;
+    margin-bottom:5px;
 }
 
-.excerpt {
-  padding: 0 0.8rem;
-  font-size: 0.9rem;
-  color: var(--color-text);
-  flex-grow: 1;
+.section-title h2 {
+    font-size: 4rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.2rem;
+    color: #333;
+    margin-bottom: 1rem;
 }
 
-/* Category Tags */
-h6 {
-  display: inline-block;
-  margin: 0.5rem 0.8rem;
-  padding: 0.25rem 0.5rem;
-  font-size: 0.75rem;
-  background: var(--color-gray-50);
-  border-radius: 3px;
+.section-title::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(90deg, #333, #777);
 }
 
-/* Metadata */
-.datetime {
-  padding: 0.5rem 0.8rem;
-  font-size: 0.8rem;
+.section-title p {
+    font-size: 3rem;
+    color: #666;
+    margin-top: 0.5rem;
+}
+/* Style pour les articles */
+.brick.entry {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-.new-star {
-  font-size: 0.8rem;
-  margin-left: 0.5rem;
-  color: #ffd700;
+.brick.entry:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
 }
 
-/* Read More Button */
-.read-more {
-  display: block;
-  text-align: center;
-  background: var(--color-1);
-  color: white;
-  padding: 0.6rem;
-  margin: 0.8rem;
-  border-radius: 3px;
-  text-decoration: none;
-  transition: background 0.2s ease;
+.entry__thumb img {
+    border-radius: 12px 12px 0 0;
+    transition: opacity 0.3s ease;
 }
 
-.read-more:hover {
-  background: var(--color-2);
-  color: white;
+.entry__text {
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 0 0 12px 12px;
 }
 
-/* Responsive Adjustments */
-@media screen and (max-width: 800px) {
-  .articles-container {
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  }
+.entry__meta {
+    margin-bottom: 1rem;
 }
 
-    </style>
+.entry__meta a {
+    color: #555;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.entry__meta a:hover {
+    color: #000;
+}
+
+.cat-links a {
+    background: rgba(0, 0, 0, 0.05);
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+}
+
+.entry__title {
+    margin: 1rem 0;
+}
+
+.entry__title a {
+    color: #333;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.entry__title a:hover {
+    color: #000;
+}
+
+.entry__excerpt {
+    color: #666;
+    line-height: 1.6;
+}
+
+.entry__more-link {
+    display: inline-block;
+    margin-top: 1rem;
+    color: #333;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+    position: relative;
+}
+
+.entry__more-link::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    bottom: -2px;
+    left: 0;
+    background-color: #333;
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+
+.entry__more-link:hover::after {
+    transform: scaleX(1);
+}
+</style>
 
 </head>
+
 
 <body id="top">
 
@@ -139,7 +207,7 @@ h6 {
 
     <!-- page wrap
     ================================================== -->
-    <div id="page" class="s-pagewrap">
+    <div id="page" class="s-pagewrap ss-home">
 
 
         <!-- # site header 
@@ -148,7 +216,7 @@ h6 {
 
             <div class="s-header__branding">
                 <p class="site-title">
-                    <a href="index.html" rel="home">Spurgeon.</a>
+                    <a href="index.html" rel="home">ArtiFlow</a>
                 </p>
             </div>
 
@@ -159,7 +227,7 @@ h6 {
                     <h3 class="s-header__nav-heading">Navigate to</h3>
     
                     <ul class="s-header__nav">
-                        <li><a href="index.html" title="">Home</a></li>
+                        <li class="current-menu-item"><a href="index.html" title="">Home</a></li>
                         <li class="has-children">
                             <a href="#0" title="" class="">Categories</a>
                             <ul class="sub-menu">
@@ -171,7 +239,7 @@ h6 {
                                 <li><a href="category.html">Photography</a></li>
                             </ul>
                         </li>
-                        <li class="current-menu-item has-children">
+                        <li class="has-children">
                             <a href="#0" title="" class="">Blog</a>
                             <ul class="sub-menu">
                                 <li><a href="single-standard.html">Standard Post</a></li>
@@ -215,81 +283,122 @@ h6 {
                 </svg>
             </a>
 
-        </header> <!-- end s-header -->
+        </header>
+        <section>
+            <div class="section-title">
+                <h2>Favorite Articles</h2>
+                <p>Discover our most inspiring and thought-provoking content</p>
+            </div>
+            <div id="bricks" class="bricks">
+                <div class="masonry">
+                    <div class="bricks-wrapper" data-animate-block>
+                       <div class="grid-sizer"></div>
+                        @foreach($articles as $article)
+                        <article class="brick entry" data-animate-el>
+        
+                            <div class="entry__thumb">
+                                <a href="single-standard.html" class="thumb-link">
+                                <img src="{{ $article->image ? asset('storage/images/' . $article->image) : 'https://via.placeholder.com/800x400' }}" 
+                                alt="Image de l'article" class="article-image">
+                                </a>
+                            </div> <!-- end entry__thumb -->
+        
+                            <div class="entry__text">
+                                <div class="entry__header">
+                                    <div class="entry__meta">
+                                    @foreach($article->categories as $category)
+                                        <h6>{{ $category->name }}</h6>
+                                    @endforeach
+                                        <span class="byline">
+                                           
+                                            <a href="#0">{{ $article->published_at }}</a>
+                                        </span>
+                                    </div>
+                                    <h1 class="entry__title"><a href="single-standard.html">{{ $article->title }}</a></h1>
+                                 </div>
+                                <div class="entry__excerpt">
+                                   
+                                </div>
+                                <a class="entry__more-link" href="{{ route('articles.show', $article->id) }}">Read More</a>
+                                <a class="entry__more-link" href="{{ route('articles.edit', $article->id) }}">Modifier</a>
+                                <form action="{{ route('articles.destroy', $article->id) }}" method="POST" style="display:inline;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" style="background: none; border: none;">
+                                        <iconify-icon icon="material-symbols:delete-outline"></iconify-icon>
+                                        Supprimer
+                                    </button>
+                                </form>
+                            </div> <!-- end entry__text -->
+                        </article> <!-- end article -->
+                        @endforeach
+                    </div> <!-- end bricks-wrapper -->
+
+                </div> <!-- end masonry-->
 
 
-        <!-- # site-content
-        ================================================== -->
-        <div id="content" class="s-content s-content--blog">
-
-                <div class="row entry-wrap">
+                <!-- pagination -->
+                <div class="row pagination">
                     <div class="column lg-12">
+                        <nav class="pgn">
+                            <ul>
+                                <li>
+                                    <a class="pgn__prev" href="#0">
+                                        <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10.25 6.75L4.75 12L10.25 17.25"></path>
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19.25 12H5"></path>
+                                        </svg>
+                                    </a>
+                                </li>
+                                <li><a class="pgn__num" href="#0">1</a></li>
+                                <li><span class="pgn__num current">2</span></li>
+                                <li><a class="pgn__num" href="#0">3</a></li>
+                                <li><a class="pgn__num" href="#0">4</a></li>
+                                <li><a class="pgn__num" href="#0">5</a></li>
+                                <li><span class="pgn__num dots">…</span></li>
+                                <li><a class="pgn__num" href="#0">8</a></li>
+                                <li>
+                                    <a class="pgn__next" href="#0">
+                                        <svg width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13.75 6.75L19.25 12L13.75 17.25"></path>
+                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 12H4.75"></path>
+                                        </svg>
+                                    </a>
+                                </li>
+                            </ul>
+                        </nav> <!-- end pgn -->
+                    </div> <!-- end column -->
+                </div> <!-- end pagination -->
 
-                        <article class="entry format-standard">
+            </div> <!-- end bricks -->
 
-                            <header class="entry__header">
-    
-                                <h1 class="entry__title">
-                                   YOUR  ARTICLES
-                                </h1>
-                                <div class="articles-container" style="">
-    @foreach($articles as $article)
-        <article class="article" style="margin-top:50px">
-            <img src="{{ $article->image ? asset('storage/images/' . $article->image) : 'https://via.placeholder.com/800x400' }}" 
-                 alt="Image de l'article" class="article-image">
-            <h1 class="title">{{ $article->title }}</h1>
-            <div class="excerpt">
-                <label for="content">{{ $article->excerpt }}</label>
-            </div>
-            @foreach($article->categories as $category)
-                <h6>{{ $category->name }}</h6>
-            @endforeach
-            <div class="datetime" style="color:blue">
-                <label for="datetime">{{ $article->published_at }}</label>
-            </div>
-            <label style="color:black">{{ $article->user->name }}</label>
-              @if($article->isNew())
-                  <span class="new-star">⭐ Nouveau</span>
-              @endif
-              @if($article->youtube_url)
-                  <div class="youtube-video">
-                      <iframe width="560" height="315" src="https://www.youtube.com/embed/{{ parse_url($article->youtube_url, PHP_URL_QUERY) }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                  </div>
-              @endif
+        </section> <!-- end s-content -->
 
 
-            <!-- Action Buttons: Modifier, Supprimer, Confirmer -->
-            <div class="action-buttons" style="margin-top: 15px;">
-                <!-- Modifier Button -->
-                <a href="{{ route('articles.edit', $article->id) }}" class="btn btn-warning btn-sm">
-                    <iconify-icon icon="mdi:pencil-outline" style="color: white;"></iconify-icon> Modifier
-                </a>
-                
-                <!-- Supprimer Button -->
-                <form action="{{ route('articles.destroy', $article->id) }}" method="POST" style="display:inline;">
-                          @csrf
-                          @method('DELETE')
-                          <button type="submit" style="background: none; border: none;">
-                              <iconify-icon icon="material-symbols:delete-outline"></iconify-icon>
-                              Supprimer
-                          </button>
-                </form>
+        <!-- # site-footer
+        ================================================== -->
+        <footer id="colophon" class="s-footer">
 
-                <!-- Confirmer Button -->
-                <!-- Confirmer Button -->
-                <form action="{{ route('article.confirm', $article->id) }}" method="POST">
-                    @csrf
-                    <button type="submit" class="btn btn-success btn-sm">
-                        <iconify-icon icon="mdi:check-circle-outline" style="color: white;"></iconify-icon> Confirmer
-                    </button>
-                </form>
+            <div class="row s-footer__subscribe">
+                <div class="column lg-12">
 
-            </div>
-            
-            <a href="{{ route('articles.show', $article->id) }}" class="read-more">Lire la suite </a>
-        </article>
-    @endforeach
-</div>               
+                    <h2>
+                    Subscribe to Our Newsletter.
+                    </h2>
+                    <p>
+                    Subscribe now to get all latest updates
+                    </p>
+
+                    <form id="mc-form" class="mc-form">
+                        <input type="email" name="EMAIL" id="mce-EMAIL" class="u-fullwidth text-center" placeholder="Your Email Address" title="The domain portion of the email address is invalid (the portion after the @)." pattern="^([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x22([^\x0d\x22\x5c\x80-\xff]|\x5c[\x00-\x7f])*\x22)(\x2e([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x22([^\x0d\x22\x5c\x80-\xff]|\x5c[\x00-\x7f])*\x22))*\x40([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x5b([^\x0d\x5b-\x5d\x80-\xff]|\x5c[\x00-\x7f])*\x5d)(\x2e([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x5b([^\x0d\x5b-\x5d\x80-\xff]|\x5c[\x00-\x7f])*\x5d))*(\.\w{2,})+$" required>
+                        <input type="submit" name="subscribe" value="Subscribe" class="btn--small btn--primary u-fullwidth">
+                        <!-- <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_cdb7b577e41181934ed6a6a44_9a91cfe7b3" tabindex="-1" value=""></div> -->
+                        <div class="mc-status"></div>
+                    </form>
+
+                </div>
+            </div> <!-- end s-footer__subscribe -->
+
             <div class="row s-footer__main">
 
                 <div class="column lg-5 md-6 tab-12 s-footer__about">

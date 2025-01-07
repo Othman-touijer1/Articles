@@ -24,102 +24,6 @@
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
     <link rel="manifest" href="site.webmanifest">
-    <style>
-      /* Article Container */
-.articles-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1.5rem;
-  max-width: var(--width-max);
-  margin: 0 auto;
-  padding: 1rem;
-}
-
-/* Article Card */
-.article {
-  background-color: var(--color-white);
-  border-radius: 4px;
-  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s ease;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-.article:hover {
-  transform: translateY(-2px);
-}
-
-/* Article Image */
-.article-image {
-  width: 400px;
-  height: 300px;
-  object-fit: cover;
-  border-radius: 4px 4px 0 0;
-}
-
-/* Article Content */
-.article h1.title {
-  font-size: 1.1rem;
-  margin: 0.8rem;
-  line-height: 1.4;
-}
-
-.excerpt {
-  padding: 0 0.8rem;
-  font-size: 0.9rem;
-  color: var(--color-text);
-  flex-grow: 1;
-}
-
-/* Category Tags */
-h6 {
-  display: inline-block;
-  margin: 0.5rem 0.8rem;
-  padding: 0.25rem 0.5rem;
-  font-size: 0.75rem;
-  background: var(--color-gray-50);
-  border-radius: 3px;
-}
-
-/* Metadata */
-.datetime {
-  padding: 0.5rem 0.8rem;
-  font-size: 0.8rem;
-}
-
-.new-star {
-  font-size: 0.8rem;
-  margin-left: 0.5rem;
-  color: #ffd700;
-}
-
-/* Read More Button */
-.read-more {
-  display: block;
-  text-align: center;
-  background: var(--color-1);
-  color: white;
-  padding: 0.6rem;
-  margin: 0.8rem;
-  border-radius: 3px;
-  text-decoration: none;
-  transition: background 0.2s ease;
-}
-
-.read-more:hover {
-  background: var(--color-2);
-  color: white;
-}
-
-/* Responsive Adjustments */
-@media screen and (max-width: 800px) {
-  .articles-container {
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  }
-}
-
-    </style>
 
 </head>
 
@@ -230,66 +134,10 @@ h6 {
                             <header class="entry__header">
     
                                 <h1 class="entry__title">
-                                   YOUR  ARTICLES
+                                   YOUR FAVORIETS ARTICLES
                                 </h1>
-                                <div class="articles-container" style="">
-    @foreach($articles as $article)
-        <article class="article" style="margin-top:50px">
-            <img src="{{ $article->image ? asset('storage/images/' . $article->image) : 'https://via.placeholder.com/800x400' }}" 
-                 alt="Image de l'article" class="article-image">
-            <h1 class="title">{{ $article->title }}</h1>
-            <div class="excerpt">
-                <label for="content">{{ $article->excerpt }}</label>
-            </div>
-            @foreach($article->categories as $category)
-                <h6>{{ $category->name }}</h6>
-            @endforeach
-            <div class="datetime" style="color:blue">
-                <label for="datetime">{{ $article->published_at }}</label>
-            </div>
-            <label style="color:black">{{ $article->user->name }}</label>
-              @if($article->isNew())
-                  <span class="new-star">⭐ Nouveau</span>
-              @endif
-              @if($article->youtube_url)
-                  <div class="youtube-video">
-                      <iframe width="560" height="315" src="https://www.youtube.com/embed/{{ parse_url($article->youtube_url, PHP_URL_QUERY) }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                  </div>
-              @endif
-
-
-            <!-- Action Buttons: Modifier, Supprimer, Confirmer -->
-            <div class="action-buttons" style="margin-top: 15px;">
-                <!-- Modifier Button -->
-                <a href="{{ route('articles.edit', $article->id) }}" class="btn btn-warning btn-sm">
-                    <iconify-icon icon="mdi:pencil-outline" style="color: white;"></iconify-icon> Modifier
-                </a>
-                
-                <!-- Supprimer Button -->
-                <form action="{{ route('articles.destroy', $article->id) }}" method="POST" style="display:inline;">
-                          @csrf
-                          @method('DELETE')
-                          <button type="submit" style="background: none; border: none;">
-                              <iconify-icon icon="material-symbols:delete-outline"></iconify-icon>
-                              Supprimer
-                          </button>
-                </form>
-
-                <!-- Confirmer Button -->
-                <!-- Confirmer Button -->
-                <form action="{{ route('article.confirm', $article->id) }}" method="POST">
-                    @csrf
-                    <button type="submit" class="btn btn-success btn-sm">
-                        <iconify-icon icon="mdi:check-circle-outline" style="color: white;"></iconify-icon> Confirmer
-                    </button>
-                </form>
-
-            </div>
-            
-            <a href="{{ route('articles.show', $article->id) }}" class="read-more">Lire la suite </a>
-        </article>
-    @endforeach
-</div>               
+                        
+                               
             <div class="row s-footer__main">
 
                 <div class="column lg-5 md-6 tab-12 s-footer__about">

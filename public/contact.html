@@ -6,7 +6,7 @@
     ================================================== -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Video Post - Spurgeon</title>
+    <title>Contact - Spurgeon</title>
 
     <script>
         document.documentElement.classList.remove('no-js');
@@ -24,102 +24,6 @@
     <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
     <link rel="manifest" href="site.webmanifest">
-    <style>
-      /* Article Container */
-.articles-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1.5rem;
-  max-width: var(--width-max);
-  margin: 0 auto;
-  padding: 1rem;
-}
-
-/* Article Card */
-.article {
-  background-color: var(--color-white);
-  border-radius: 4px;
-  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s ease;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-.article:hover {
-  transform: translateY(-2px);
-}
-
-/* Article Image */
-.article-image {
-  width: 400px;
-  height: 300px;
-  object-fit: cover;
-  border-radius: 4px 4px 0 0;
-}
-
-/* Article Content */
-.article h1.title {
-  font-size: 1.1rem;
-  margin: 0.8rem;
-  line-height: 1.4;
-}
-
-.excerpt {
-  padding: 0 0.8rem;
-  font-size: 0.9rem;
-  color: var(--color-text);
-  flex-grow: 1;
-}
-
-/* Category Tags */
-h6 {
-  display: inline-block;
-  margin: 0.5rem 0.8rem;
-  padding: 0.25rem 0.5rem;
-  font-size: 0.75rem;
-  background: var(--color-gray-50);
-  border-radius: 3px;
-}
-
-/* Metadata */
-.datetime {
-  padding: 0.5rem 0.8rem;
-  font-size: 0.8rem;
-}
-
-.new-star {
-  font-size: 0.8rem;
-  margin-left: 0.5rem;
-  color: #ffd700;
-}
-
-/* Read More Button */
-.read-more {
-  display: block;
-  text-align: center;
-  background: var(--color-1);
-  color: white;
-  padding: 0.6rem;
-  margin: 0.8rem;
-  border-radius: 3px;
-  text-decoration: none;
-  transition: background 0.2s ease;
-}
-
-.read-more:hover {
-  background: var(--color-2);
-  color: white;
-}
-
-/* Responsive Adjustments */
-@media screen and (max-width: 800px) {
-  .articles-container {
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  }
-}
-
-    </style>
 
 </head>
 
@@ -171,7 +75,7 @@ h6 {
                                 <li><a href="category.html">Photography</a></li>
                             </ul>
                         </li>
-                        <li class="current-menu-item has-children">
+                        <li class="has-children">
                             <a href="#0" title="" class="">Blog</a>
                             <ul class="sub-menu">
                                 <li><a href="single-standard.html">Standard Post</a></li>
@@ -181,7 +85,7 @@ h6 {
                         </li>
                         <li><a href="styles.html" title="">Styles</a></li>
                         <li><a href="about.html" title="">About</a></li>
-                        <li><a href="contact.html" title="">Contact</a></li>
+                        <li class="current-menu-item"><a href="contact.html" title="">Contact</a></li>
                     </ul> <!-- end s-header__nav -->
 
                 </nav> <!-- end s-header__nav-wrap -->
@@ -220,76 +124,128 @@ h6 {
 
         <!-- # site-content
         ================================================== -->
-        <div id="content" class="s-content s-content--blog">
+        <div id="content" class="s-content s-content--page">
 
                 <div class="row entry-wrap">
                     <div class="column lg-12">
 
-                        <article class="entry format-standard">
+                        <article class="entry">
 
-                            <header class="entry__header">
+                            <header class="entry__header entry__header--narrow">
     
                                 <h1 class="entry__title">
-                                   YOUR  ARTICLES
+                                    Say Hello.
                                 </h1>
-                                <div class="articles-container" style="">
-    @foreach($articles as $article)
-        <article class="article" style="margin-top:50px">
-            <img src="{{ $article->image ? asset('storage/images/' . $article->image) : 'https://via.placeholder.com/800x400' }}" 
-                 alt="Image de l'article" class="article-image">
-            <h1 class="title">{{ $article->title }}</h1>
-            <div class="excerpt">
-                <label for="content">{{ $article->excerpt }}</label>
-            </div>
-            @foreach($article->categories as $category)
-                <h6>{{ $category->name }}</h6>
-            @endforeach
-            <div class="datetime" style="color:blue">
-                <label for="datetime">{{ $article->published_at }}</label>
-            </div>
-            <label style="color:black">{{ $article->user->name }}</label>
-              @if($article->isNew())
-                  <span class="new-star">⭐ Nouveau</span>
-              @endif
-              @if($article->youtube_url)
-                  <div class="youtube-video">
-                      <iframe width="560" height="315" src="https://www.youtube.com/embed/{{ parse_url($article->youtube_url, PHP_URL_QUERY) }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                  </div>
-              @endif
+    
+                            </header>
+
+                            <div class="entry__media">
+                                <figure class="featured-image">
+                                    <img src="images/thumbs/contact/contact-1200.jpg" 
+                                      srcset="images/thumbs/contact/contact-2400.jpg 2400w, 
+                                              images/thumbs/contact/contact-1200.jpg 1200w, 
+                                              images/thumbs/contact/contact-600.jpg 600w" sizes="(max-width: 2400px) 100vw, 2400px" alt="">
+                                </figure>
+                            </div>
+
+                            <div class="content-primary">
+
+                                <div class="entry__content">
+        
+                                    <p class="lead">
+                                    Duis ex ad cupidatat tempor Excepteur cillum cupidatat fugiat nostrud cupidatat dolor 
+                                    sunt sint sit nisi est eu exercitation incididunt adipisicing veniam velit id fugiat 
+                                    enim mollit amet anim veniam dolor dolor irure velit commodo cillum sit nulla ullamco 
+                                    magna amet magna cupidatat qui labore cillum cillum cupidatat fugiat nostrud.</p> 
+
+                                    <p>
+                                    Eligendi quam at quis. Sit vel neque quam consequuntur expedita quisquam. Incidunt quae 
+                                    qui error. Rerum non facere mollitia ut magnam laboriosam. Quisquam neque quia ex eligendi 
+                                    repellat illum quibusdam aut. Architecto quam consequuntur totam ratione reprehenderit est 
+                                    praesentium. 
+                                    </p>
+
+                                    <div class="row block-large-1-2 block-tab-whole entry__blocks">
+                                        <div class="column">
+                                            <h4>Where to Find Us</h4>
+                                            <p>
+                                            1600 Amphitheatre Parkway<br>
+                                            Mountain View, CA<br>
+                                            94043 US
+                                            </p>
+                                        </div>
+        
+                                        <div class="column">
+                                            <h4>Contact Info</h4>
+                                            <p>
+                                            someone@yourdomain.com<br>
+                                            info@yourdomain.com <br>
+                                            Phone: (+63) 555 1212
+                                            </p> 
+                                        </div>
+                                    </div>
+
+                                    <h4>Feel Free to Say Hi.</h4>
+
+                                    <form name="cForm" id="cForm" class="entry__form" method="post" action="" autocomplete="off">
+                                        <fieldset class="row">
+
+                                            <div class="column lg-6 tab-12 form-field">
+                                                <input name="cName" id="cName" class="u-fullwidth" placeholder="Your Name" value="" type="text">
+                                            </div>
+
+                                            <div class="column lg-6 tab-12 form-field">
+                                                <input name="cEmail" id="cEmail" class="u-fullwidth" placeholder="Your Email" value="" type="text">
+                                            </div>
+
+                                            <div class="column lg-12 form-field">
+                                                <input name="cWebsite" id="cWebsite" class="u-fullwidth" placeholder="Website" value="" type="text">
+                                            </div>
+
+                                            <div class="column lg-12 message form-field">
+                                                <textarea name="cMessage" id="cMessage" class="u-fullwidth" placeholder="Your Message"></textarea>
+                                            </div>
+
+                                            <div class="column lg-12">
+                                                <input name="submit" id="submit" class="btn btn--primary btn-wide btn--large u-fullwidth" value="Add Comment" type="submit">
+                                            </div>
+
+                                        </fieldset>
+                                    </form> <!-- end form -->
+
+                            </div> <!-- end content-primary -->
+
+                        </article> <!-- end entry -->
+
+                    </div>
+                </div> <!-- end entry-wrap -->
+        </section> <!-- end s-content -->
 
 
-            <!-- Action Buttons: Modifier, Supprimer, Confirmer -->
-            <div class="action-buttons" style="margin-top: 15px;">
-                <!-- Modifier Button -->
-                <a href="{{ route('articles.edit', $article->id) }}" class="btn btn-warning btn-sm">
-                    <iconify-icon icon="mdi:pencil-outline" style="color: white;"></iconify-icon> Modifier
-                </a>
-                
-                <!-- Supprimer Button -->
-                <form action="{{ route('articles.destroy', $article->id) }}" method="POST" style="display:inline;">
-                          @csrf
-                          @method('DELETE')
-                          <button type="submit" style="background: none; border: none;">
-                              <iconify-icon icon="material-symbols:delete-outline"></iconify-icon>
-                              Supprimer
-                          </button>
-                </form>
+        <!-- # site-footer
+        ================================================== -->
+        <footer id="colophon" class="s-footer">
 
-                <!-- Confirmer Button -->
-                <!-- Confirmer Button -->
-                <form action="{{ route('article.confirm', $article->id) }}" method="POST">
-                    @csrf
-                    <button type="submit" class="btn btn-success btn-sm">
-                        <iconify-icon icon="mdi:check-circle-outline" style="color: white;"></iconify-icon> Confirmer
-                    </button>
-                </form>
+            <div class="row s-footer__subscribe">
+                <div class="column lg-12">
 
-            </div>
-            
-            <a href="{{ route('articles.show', $article->id) }}" class="read-more">Lire la suite </a>
-        </article>
-    @endforeach
-</div>               
+                    <h2>
+                    Subscribe to Our Newsletter.
+                    </h2>
+                    <p>
+                    Subscribe now to get all latest updates
+                    </p>
+
+                    <form id="mc-form" class="mc-form">
+                        <input type="email" name="EMAIL" id="mce-EMAIL" class="u-fullwidth text-center" placeholder="Your Email Address" title="The domain portion of the email address is invalid (the portion after the @)." pattern="^([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x22([^\x0d\x22\x5c\x80-\xff]|\x5c[\x00-\x7f])*\x22)(\x2e([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x22([^\x0d\x22\x5c\x80-\xff]|\x5c[\x00-\x7f])*\x22))*\x40([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x5b([^\x0d\x5b-\x5d\x80-\xff]|\x5c[\x00-\x7f])*\x5d)(\x2e([^\x00-\x20\x22\x28\x29\x2c\x2e\x3a-\x3c\x3e\x40\x5b-\x5d\x7f-\xff]+|\x5b([^\x0d\x5b-\x5d\x80-\xff]|\x5c[\x00-\x7f])*\x5d))*(\.\w{2,})+$" required>
+                        <input type="submit" name="subscribe" value="Subscribe" class="btn--small btn--primary u-fullwidth">
+                        <!-- <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_cdb7b577e41181934ed6a6a44_9a91cfe7b3" tabindex="-1" value=""></div> -->
+                        <div class="mc-status"></div>
+                    </form>
+
+                </div>
+            </div> <!-- end s-footer__subscribe -->
+
             <div class="row s-footer__main">
 
                 <div class="column lg-5 md-6 tab-12 s-footer__about">
